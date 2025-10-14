@@ -2,4 +2,4 @@
 [![Actions Status](https://github.com/kronnoss37/frontend-project-12/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/kronnoss37/frontend-project-12/actions)
 
 ## Slack
-https://frontend-project-11-gules-nine.vercel.app/
+https://frontend-project-12-sox1.onrender.com
