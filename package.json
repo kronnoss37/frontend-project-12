@@ -1,0 +1,29 @@
+{
+  "name": "@hexlet/code",
+  "version": "1.0.0",
+  "description": "[![Actions Status](https://github.com/kronnoss37/frontend-project-12/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/kronnoss37/frontend-project-12/actions) ### Fourth project",
+  "main": "frontend/src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "npm run dev --prefix frontend",
+    "start": "start-server -s ./frontend/dist",
+    "build": "npm run build --prefix frontend",
+    "app": "concurrently \"npm run start\" \"npm run dev\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kronnoss37/frontend-project-12.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kronnoss37/frontend-project-12/issues"
+  },
+  "homepage": "https://github.com/kronnoss37/frontend-project-12#readme",
+  "dependencies": {
+    "@hexlet/chat-server": "^2.0.4"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
+}
