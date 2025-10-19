@@ -1,10 +1,18 @@
 import React from 'react'
 import { Link, useNavigate } from 'react-router'
+import { useSelector, useDispatch } from 'react-redux'
+
+import { logOut } from '../store/authSlice'
 
 const Navbar = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+
+  const dispatch = useDispatch();
+  const isAuth = useSelector((state) => state.authData.isAuth);
+
   const handleLogout = () => {
-    // Finish user session
+    dispatch(logOut())
+    localStorage.removeItem('user')
     navigate('/login')
   }
   
@@ -12,7 +20,7 @@ const Navbar = () => {
     <nav className='shadow-sm navbar navbar-expand-lg navbar-light bg-white'>
       <div className='container'>
         <Link className='navbar-brand' to='/'>Hexlet Chat</Link>
-        <button className='btn btn-primary' onClick={handleLogout}>Выйти</button>
+        {isAuth ? <button className='btn btn-primary' onClick={handleLogout}>Выйти</button> : ''}
       </div>
     </nav>
   );

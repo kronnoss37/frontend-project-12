@@ -1,11 +1,12 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Navigate } from 'react-router'
+import { useSelector } from 'react-redux';
 
 const RequireAuth = ({ children }) => {
 
-  const auth = true
+  const isAuth = useSelector((state) => state.authData.isAuth);
 
-  if(!auth) return <Navigate to='/login' replace/>
+  if (!isAuth) return <Navigate to='/login' replace />;
 
   return (
     <>
