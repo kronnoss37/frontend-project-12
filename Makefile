@@ -4,7 +4,7 @@ install:
 
 #	Target: run eslint in all js files
 lint:
-	npx eslint .
+	npm run lint --prefix frontend
 
 # Target: build project
 build:
