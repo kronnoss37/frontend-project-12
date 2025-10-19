@@ -1,13 +1,17 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { BrowserRouter } from 'react-router';
+import { Provider } from 'react-redux'
 
 import App from './components/App'
+import store from './store'
 
 const mountNode = document.querySelector('#chat')
 const root = ReactDOM.createRoot(mountNode)
 root.render(
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>
+  <Provider store={store}>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </Provider>
 )
