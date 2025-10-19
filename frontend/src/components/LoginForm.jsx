@@ -1,29 +1,57 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import { Formik, Form, Field } from 'formik'
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router';
 
-const initialValues = {
-  username: '',
-  password: ''
-}
+import { authUser } from '../store/authSlice'
 
 const LoginForm = () => {
 
-  const handleSubmit = (values) => {
+  const navigate = useNavigate();
 
-    // logic sumbit form
-    console.log('sumbit', values);
-  }
+  const inputRef = useRef(null)
+
+  const dispatch = useDispatch();
+
+  const isAuth = useSelector(state => state.authData.isAuth)
+  const errorData = useSelector((state) => state.authData.error);
+
+  useEffect(() => {
+    inputRef.current.focus()
+  }, [])
+
+  useEffect(() => {
+    if (isAuth) {
+      navigate('/', { replace: true });
+    }
+  }, [isAuth]);
+
+  const handleSubmit = (values, { setSubmitting }) => {
+    dispatch(authUser(values)).finally(() => setSubmitting(false));
+  };
+
+  const className = () => `form-control ${errorData?.type === 'auth' ? 'is-invalid' : ''}`;
+
+  const initialValues = {
+    username: '',
+    password: '',
+  };
 
   return (
-    <Formik
-      initialValues={initialValues}
-      onSubmit={handleSubmit}
-    >
-      {() => (
+    <Formik initialValues={initialValues} onSubmit={handleSubmit}>
+      {({ isSubmitting }) => (
         <Form className='col-12 col-md-6 mt-3 mt-md-0'>
           <h1 className='text-center mb-4'>Войти</h1>
           <div className='form-floating mb-3'>
-            <Field name='username' autoComplete='username' required placeholder='Ваш ник' id='username' className='form-control' />
+            <Field
+              name='username'
+              autoComplete='username'
+              required
+              placeholder='Ваш ник'
+              id='username'
+              className={className()}
+              ref={inputRef}
+            />
             <label htmlFor='username'>Ваш ник</label>
           </div>
           <div className='form-floating mb-3'>
@@ -34,13 +62,20 @@ const LoginForm = () => {
               placeholder='Пароль'
               id='password'
               type='password'
-              className='form-control'
+              className={className()}
             />
             <label htmlFor='password'>Пароль</label>
+            <div className='invalid-feedback'>Неверные имя пользователя или пароль</div>
           </div>
-          <button type='submit' className='w-100 mb-3 btn btn-outline-primary'>
-            Войти
-          </button>
+          {isSubmitting ? (
+            <button className='btn btn-primary' type='button' disabled>
+              <span className='spinner-border spinner-border-sm' aria-hidden='true'></span>
+              {' '}
+              <span role='status'>Loading...</span>
+            </button>
+          ) : (
+            <button type='submit' className='w-100 mb-3 btn btn-outline-primary'>Войти</button>
+          )}
         </Form>
       )}
     </Formik>
