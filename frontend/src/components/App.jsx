@@ -7,8 +7,6 @@ import LoginPage from '../pages/LoginPage'
 import NotFoundPage from '../pages/NotFoundPage'
 import RequireAuth from '../router/RequireAuth'
 
-
-
 const App = () => {
   return (
     <Routes>
