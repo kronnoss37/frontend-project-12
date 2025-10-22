@@ -1,24 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
-import routes from '../routes'
-
-const getErrorByStatus = (status) => {
-  switch (status) {
-    case 401: {
-      return { type: 'auth', pathMessage: '' }
-    }
-    case 500: {
-      return { type: 'server', pathMessage: '' }
-    }
-    case 501: {
-      return { type: 'server', pathMessage: '' }
-    }
-    default: {
-      return null
-    }
-  }
-}
+import routes from '../../routes'
 
 export const authUser = createAsyncThunk(
   'auth/authUser',
@@ -30,9 +13,14 @@ export const authUser = createAsyncThunk(
       return userData
     }
     catch (error) {
-      const errorData = getErrorByStatus(error.response?.status)
-      if (!errorData) console.error(`Error: ${error.message}`)
-      return rejectWithValue(errorData)
+      if (error.response?.status === 401) {
+        return rejectWithValue({ type: 'auth', pathMessage: '' });
+      }
+      if (error?.code === 'ERR_NETWORK') {
+        return rejectWithValue({ type: 'network', pathMessage: '' });
+      }
+      console.log(`Error: ${error?.response?.statusText ?? error.message}`);
+      return rejectWithValue(null)
     }
   },
 )
@@ -58,14 +46,11 @@ const authSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(authUser.pending, (state) => {
-        state.error = null
-      })
       .addCase(authUser.fulfilled, (state, action) => {
-        console.log('fulfilled')
         const user = action.payload
         state.user = user
         state.isAuth = true
+        state.error = null;
       })
       .addCase(authUser.rejected, (state, action) => {
         const errorData = action.payload
