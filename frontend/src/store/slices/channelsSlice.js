@@ -79,7 +79,7 @@ const channelsSlice = createSlice({
       .addCase(getChannels.fulfilled, (state, action) => {
         const channels = action.payload;
         state.channels = channels;
-        state.currentChannel = channels[0]
+        state.currentChannel = channels?.[0]
       })
       .addCase(addChannel.fulfilled, (state, action) => {
         const newChannel = action.payload;
