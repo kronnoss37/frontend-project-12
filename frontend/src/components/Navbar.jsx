@@ -1,10 +1,11 @@
 import React from 'react'
 import { Link, useNavigate } from 'react-router'
 import { useSelector, useDispatch } from 'react-redux'
+import { Navbar, Container, Button } from 'react-bootstrap'
 
-import { logOut } from '../store/authSlice'
+import { logOut } from '../store/slices/authSlice'
 
-const Navbar = () => {
+const NavbarBlock = () => {
   const navigate = useNavigate()
 
   const dispatch = useDispatch()
@@ -17,13 +18,13 @@ const Navbar = () => {
   }
 
   return (
-    <nav className="shadow-sm navbar navbar-expand-lg navbar-light bg-white">
-      <div className="container">
+    <Navbar expand="lg" bg="white" variant="light" className="shadow-sm">
+      <Container className="container">
         <Link className="navbar-brand" to="/">Hexlet Chat</Link>
-        {isAuth ? <button className="btn btn-primary" onClick={handleLogout}>Выйти</button> : ''}
-      </div>
-    </nav>
+        {isAuth ? <Button variant='primary' onClick={handleLogout}>Выйти</Button> : ''}
+      </Container>
+    </Navbar>
   )
 }
 
-export default Navbar
+export default NavbarBlock;

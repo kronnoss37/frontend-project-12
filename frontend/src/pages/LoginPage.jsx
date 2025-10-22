@@ -1,33 +1,32 @@
 import React from 'react'
 import { Link } from 'react-router'
+import { Container, Row, Col, Card, Image } from 'react-bootstrap'
 
 import LoginForm from '../components/LoginForm'
 import loginPicture from '../assets/avatar.jpg'
 
 const LoginPage = () => {
   return (
-    <div className="container-fluid h-100">
-      <div className="row justify-content-center align-content-center h-100">
-        <div className="col-12 col-md-8 col-xxl-6">
-          <div className="card shadow-sm">
-            <div className="card-body row p-5">
-              <div className="col-12 col-md-6 d-flex align-items-center justify-content-center">
-                <img src={loginPicture} className="rounded-circle" alt="Войти" />
-              </div>
+    <Container fluid className='h-100'>
+      <Row className='justify-content-center align-content-center h-100'>
+        <Col xs={12} md={8} xxl={6}>
+          <Card className='shadow-sm'>
+            <Card.Body as={Row} className='p-5'>
+              <Col xs={12} md={6} className='d-flex align-items-center justify-content-center'>
+                <Image src={loginPicture} roundedCircle alt='Войти' />
+              </Col>
               <LoginForm />
-            </div>
-            <div className="card-footer p-4">
-              <div className="text-center">
-                <span>Нет аккаунта?</span>
-                {' '}
-                <Link to="/">Регистрация</Link>
+            </Card.Body>
+            <Card.Footer className='p-4'>
+              <div className='text-center'>
+                <span>Нет аккаунта?</span> <Link to='/'>Регистрация</Link>
               </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  )
+            </Card.Footer>
+          </Card>
+        </Col>
+      </Row>
+    </Container>
+  );
 }
 
 export default LoginPage

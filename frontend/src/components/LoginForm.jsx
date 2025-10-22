@@ -2,8 +2,9 @@ import React, { useEffect, useRef } from 'react'
 import { Formik, Form, Field } from 'formik'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router'
+import { Button } from 'react-bootstrap'
 
-import { authUser } from '../store/authSlice'
+import { authUser } from '../store/slices/authSlice';
 
 const LoginForm = () => {
   const navigate = useNavigate()
@@ -68,14 +69,14 @@ const LoginForm = () => {
           </div>
           {isSubmitting
             ? (
-                <button className="btn btn-primary" type="button" disabled>
+                <Button variant="primary" type="button" disabled>
                   <span className="spinner-border spinner-border-sm" aria-hidden="true"></span>
                   {' '}
                   <span role="status">Loading...</span>
-                </button>
+                </Button>
               )
             : (
-                <button type="submit" className="w-100 mb-3 btn btn-outline-primary">Войти</button>
+                <Button type="submit" variant='outline-primary' className="w-100 mb-3">Войти</Button>
               )}
         </Form>
       )}

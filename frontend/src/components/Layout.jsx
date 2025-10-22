@@ -1,15 +1,15 @@
 import React from 'react'
 import { Outlet } from 'react-router'
 
-import Navbar from './Navbar'
+import NavbarBlock from './Navbar';
 
 const Layout = () => {
   return (
-    <div className="d-flex flex-column h-100">
-      <Navbar />
+    <div className='d-flex flex-column h-100'>
+      <NavbarBlock />
       <Outlet />
     </div>
-  )
+  );
 }
 
 export default Layout
