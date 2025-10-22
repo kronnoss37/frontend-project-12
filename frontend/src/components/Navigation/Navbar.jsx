@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router'
 import { useSelector, useDispatch } from 'react-redux'
 import { Navbar, Container, Button } from 'react-bootstrap'
 
-import { logOut } from '../store/slices/authSlice'
+import { logOut } from '../../store/slices/authSlice'
 
 const NavbarBlock = () => {
   const navigate = useNavigate()

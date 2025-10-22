@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Container, Row } from 'react-bootstrap';
 
-import Main from '../components/Main';
+import Main from '../components/Chat/Main';
 
 
 const ChatPage = () => {

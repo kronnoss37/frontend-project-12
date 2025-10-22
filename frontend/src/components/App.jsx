@@ -1,7 +1,7 @@
 import React from 'react'
 import { Routes, Route } from 'react-router'
 
-import Layout from './Layout'
+import Layout from './Layout/Layout'
 import ChatPage from '../pages/ChatPage'
 import LoginPage from '../pages/LoginPage'
 import NotFoundPage from '../pages/NotFoundPage'

@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router'
 import { Container, Row, Col, Card, Image } from 'react-bootstrap'
 
-import LoginForm from '../components/LoginForm'
+import LoginForm from '../components/Forms/LoginForm'
 import loginPicture from '../assets/avatar.jpg'
 
 const LoginPage = () => {

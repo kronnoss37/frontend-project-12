@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import Channels from './Channels'
-import Chat from './Chat';
-import { getChannels, setCurrentChannel } from '../store/slices/channelsSlice';
-import { getMessages } from '../store/slices/messagesSlice';
+import Channels from './Channels/Channels'
+import Chat from './Messages/Chat';
+import { getChannels, setCurrentChannel } from '../../store/slices/channelsSlice';
+import { getMessages } from '../../store/slices/messagesSlice';
 
 const Main = () => {
 

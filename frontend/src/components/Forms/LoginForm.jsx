@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router'
 import { Button } from 'react-bootstrap'
 
-import { authUser } from '../store/slices/authSlice';
+import { authUser } from '../../store/slices/authSlice';
 
 const LoginForm = () => {
   const navigate = useNavigate()
