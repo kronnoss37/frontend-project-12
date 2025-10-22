@@ -14,12 +14,12 @@ export const authUser = createAsyncThunk(
     }
     catch (error) {
       if (error.response?.status === 401) {
-        return rejectWithValue({ type: 'auth', pathMessage: '' });
+        return rejectWithValue({ type: 'auth', pathMessage: '' })
       }
       if (error?.code === 'ERR_NETWORK') {
-        return rejectWithValue({ type: 'network', pathMessage: '' });
+        return rejectWithValue({ type: 'network', pathMessage: '' })
       }
-      console.log(`Error: ${error?.response?.statusText ?? error.message}`);
+      console.log(`Error: ${error?.response?.statusText ?? error.message}`)
       return rejectWithValue(null)
     }
   },
@@ -50,7 +50,7 @@ const authSlice = createSlice({
         const user = action.payload
         state.user = user
         state.isAuth = true
-        state.error = null;
+        state.error = null
       })
       .addCase(authUser.rejected, (state, action) => {
         const errorData = action.payload

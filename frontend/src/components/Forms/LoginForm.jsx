@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router'
 import { Button } from 'react-bootstrap'
 
-import { authUser } from '../../store/slices/authSlice';
+import { authUser } from '../../store/slices/authSlice'
 
 const LoginForm = () => {
   const navigate = useNavigate()
@@ -76,7 +76,7 @@ const LoginForm = () => {
                 </Button>
               )
             : (
-                <Button type="submit" variant='outline-primary' className="w-100 mb-3">Войти</Button>
+                <Button type="submit" variant="outline-primary" className="w-100 mb-3">Войти</Button>
               )}
         </Form>
       )}

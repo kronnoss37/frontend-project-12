@@ -21,10 +21,10 @@ const NavbarBlock = () => {
     <Navbar expand="lg" bg="white" variant="light" className="shadow-sm">
       <Container className="container">
         <Link className="navbar-brand" to="/">Hexlet Chat</Link>
-        {isAuth ? <Button variant='primary' onClick={handleLogout}>Выйти</Button> : ''}
+        {isAuth ? <Button variant="primary" onClick={handleLogout}>Выйти</Button> : ''}
       </Container>
     </Navbar>
   )
 }
 
-export default NavbarBlock;
+export default NavbarBlock

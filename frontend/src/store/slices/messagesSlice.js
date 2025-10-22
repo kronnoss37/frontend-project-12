@@ -1,39 +1,41 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import axios from 'axios'
 
-import routes from "../../routes";
+import routes from '../../routes'
 
-const getRequestBody = (token) => ({
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  })
+const getRequestBody = token => ({
+  headers: {
+    Authorization: `Bearer ${token}`,
+  },
+})
 
 const getMessages = createAsyncThunk(
   'messages/getMessages',
   async (token) => {
-    try{
-      const response = await axios.get(routes.messagesPath(), getRequestBody(token));
-      console.log('response', response);
+    try {
+      const response = await axios.get(routes.messagesPath(), getRequestBody(token))
+      console.log('response', response)
       // check response.ok
       return response.data
-    } catch (error) {
-      console.error(`Error: ${error?.response?.statusText ?? error.message}`);
     }
-  }
+    catch (error) {
+      console.error(`Error: ${error?.response?.statusText ?? error.message}`)
+    }
+  },
 )
 
 const addMessage = createAsyncThunk(
   'messages/addMessage',
   async ({ token, newMessage }) => {
-    try{
-      const response = await axios.post(routes.messagesPath(), newMessage, getRequestBody(token));
-      console.log('response', response);
+    try {
+      const response = await axios.post(routes.messagesPath(), newMessage, getRequestBody(token))
+      console.log('response', response)
       return response.data
-    } catch (error) {
-      console.error(`Error: ${error?.response?.statusText ?? error.message}`);
     }
-  }
+    catch (error) {
+      console.error(`Error: ${error?.response?.statusText ?? error.message}`)
+    }
+  },
 )
 
 // const editMessage = createAsyncThunk(
@@ -64,7 +66,7 @@ const addMessage = createAsyncThunk(
 
 const initialState = {
   messages: [],
-};
+}
 
 const messagesSlice = createSlice({
   name: 'messages',
@@ -73,13 +75,13 @@ const messagesSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getMessages.fulfilled, (state, action) => {
-        const messages = action.payload;
-        state.messages = messages;
+        const messages = action.payload
+        state.messages = messages
       })
       .addCase(addMessage.fulfilled, (state, action) => {
-        const newMessage = action.payload;
-        state.messages.push(newMessage);
-      });
+        const newMessage = action.payload
+        state.messages.push(newMessage)
+      })
     // .addCase(editMessage.fulfilled, (state, action) => {
     //   const newMessage = action.payload;
     //   const restMessages = state.messages.filter(({ id }) => id !== newMessage.id);
@@ -100,7 +102,7 @@ const messagesSlice = createSlice({
     //   }
     // );
   },
-});
+})
 
-export { getMessages };
-export default messagesSlice.reducer;
+export { getMessages }
+export default messagesSlice.reducer

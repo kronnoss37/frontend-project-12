@@ -10,4 +10,4 @@ export default configureStore({
     channelsData: channelsReducer,
     messagesData: messagesReducer,
   },
-});
+})
