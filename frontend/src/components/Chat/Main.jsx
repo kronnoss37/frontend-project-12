@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import Channels from './Channels/Channels'
 import Chat from './Messages/Chat'
 import { getChannels, setCurrentChannel } from '../../store/slices/channelsSlice'
-import { getMessages } from '../../store/slices/messagesSlice'
+import { getMessages, addAsyncMessage } from '../../store/slices/messagesSlice';
 
 const Main = () => {
   const dispatch = useDispatch()
@@ -14,23 +14,34 @@ const Main = () => {
   const currentChannel = useSelector(state => state.channelsData.currentChannel)
 
   const messages = useSelector(state => state.messagesData.messages)
+  const isLoadingMessage = useSelector((state) => state.messagesData.isLoadingMessage);
+
+  const token = userData?.token;
+
+  console.log('messages', messages);
 
   useEffect(() => {
-    const token = userData?.token
     if (token) {
-      dispatch(getChannels(token))
-      dispatch(getMessages(token))
+      dispatch(getChannels(token));
+      dispatch(getMessages(token));
     }
-  }, [dispatch, userData?.token])
+  }, [dispatch, token]);
 
   const changeChannel = newChannel => dispatch(setCurrentChannel(newChannel))
+
+  const addNewMessage = newMessage => {
+    const messageConfig = { body: newMessage, channelId: currentChannel.id, username: userData.username };
+    if(token){
+      dispatch(addAsyncMessage({ token, newMessage: messageConfig }));
+    }
+  }
 
   return (
     <>
       <Channels channels={channels} currentChannel={currentChannel} changeChannel={changeChannel} />
-      <Chat currentChannel={currentChannel} messages={messages} />
+      <Chat currentChannel={currentChannel} messages={messages} addNewMessage={addNewMessage} isLoadingMessage={isLoadingMessage} />
     </>
-  )
+  );
 }
 
 export default Main

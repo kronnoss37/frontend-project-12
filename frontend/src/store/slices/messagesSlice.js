@@ -14,8 +14,6 @@ const getMessages = createAsyncThunk(
   async (token) => {
     try {
       const response = await axios.get(routes.messagesPath(), getRequestBody(token))
-      console.log('response', response)
-      // check response.ok
       return response.data
     }
     catch (error) {
@@ -24,16 +22,15 @@ const getMessages = createAsyncThunk(
   },
 )
 
-const addMessage = createAsyncThunk(
+const addAsyncMessage = createAsyncThunk(
   'messages/addMessage',
   async ({ token, newMessage }) => {
+    // { dispatch??? -> dispatch(addMessages(response.data))}
     try {
-      const response = await axios.post(routes.messagesPath(), newMessage, getRequestBody(token))
-      console.log('response', response)
-      return response.data
-    }
-    catch (error) {
-      console.error(`Error: ${error?.response?.statusText ?? error.message}`)
+      const response = await axios.post(routes.messagesPath(), newMessage, getRequestBody(token));
+      return response.data;
+    } catch (error) {
+      console.error(`Error: ${error?.response?.statusText ?? error.message}`);
     }
   },
 )
@@ -64,24 +61,37 @@ const addMessage = createAsyncThunk(
 //   }
 // )
 
+const addMessageProcess = (state, newMessage) => {
+  state.isLoadingMessage = false;
+  state.messages.push(newMessage);
+}
+
 const initialState = {
   messages: [],
+  isLoadingMessage: false,
 }
 
 const messagesSlice = createSlice({
   name: 'messages',
   initialState,
-  reducers: {},
+  reducers: {
+    addMessage: (state, action) => {
+      addMessageProcess(state, action.payload)
+    }
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getMessages.fulfilled, (state, action) => {
-        const messages = action.payload
-        state.messages = messages
+        const messages = action.payload;
+        state.messages = messages;
       })
-      .addCase(addMessage.fulfilled, (state, action) => {
-        const newMessage = action.payload
-        state.messages.push(newMessage)
+    builder
+      .addCase(addAsyncMessage.pending, (state) => {
+        state.isLoadingMessage = true;
       })
+      .addCase(addAsyncMessage.fulfilled, (state, action) => {
+        addMessageProcess(state, action.payload);
+      });
     // .addCase(editMessage.fulfilled, (state, action) => {
     //   const newMessage = action.payload;
     //   const restMessages = state.messages.filter(({ id }) => id !== newMessage.id);
@@ -102,7 +112,9 @@ const messagesSlice = createSlice({
     //   }
     // );
   },
-})
+});
 
-export { getMessages }
+export { getMessages, addAsyncMessage };
+
+export const { addMessage } = messagesSlice.actions
 export default messagesSlice.reducer
