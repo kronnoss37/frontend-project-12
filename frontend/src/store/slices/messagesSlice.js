@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
 import routes from '../../routes'
-import handleErrors from '../../utils/handleErrors';
+import handleErrors from '../../utils/handleErrors'
 import { removeChannel } from './channelsSlice'
 
 const getRequestBody = token => ({
@@ -20,7 +20,7 @@ const getMessages = createAsyncThunk(
     }
     catch (error) {
       console.error(`Error: ${error?.response?.statusText ?? error.message}`)
-      throw error;
+      throw error
     }
   },
 )
@@ -34,7 +34,7 @@ const addAsyncMessage = createAsyncThunk(
     }
     catch (error) {
       console.error(`Error: ${error?.response?.statusText ?? error.message}`)
-      throw error;
+      throw error
     }
   },
 )
@@ -49,9 +49,9 @@ const messagesSlice = createSlice({
   initialState,
   reducers: {
     addMessage: (state, action) => {
-      const newMessage = action.payload;
-      state.isLoadingMessage = false;
-      state.messages.push(newMessage);
+      const newMessage = action.payload
+      state.isLoadingMessage = false
+      state.messages.push(newMessage)
     },
   },
   extraReducers: (builder) => {
@@ -62,17 +62,17 @@ const messagesSlice = createSlice({
       })
     builder
       .addCase(addAsyncMessage.pending, (state) => {
-        state.isLoadingMessage = true;
+        state.isLoadingMessage = true
       })
       .addCase(addAsyncMessage.rejected, (state) => {
-        state.isLoadingMessage = false;
-      });
+        state.isLoadingMessage = false
+      })
 
     builder
       .addCase(removeChannel, (state, action) => {
         const channelId = action.payload.id
-        console.log('channelId', channelId);
-        const restMessages = state.messages.filter((message) => message.channelId !== channelId);
+        console.log('channelId', channelId)
+        const restMessages = state.messages.filter(message => message.channelId !== channelId)
         state.messages = restMessages
       })
   },

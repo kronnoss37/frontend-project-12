@@ -15,7 +15,7 @@ const LoginForm = () => {
   const dispatch = useDispatch()
 
   const isAuth = useSelector(state => state.authData.isAuth)
-  const errorType = useSelector((state) => state.authData.errorType);
+  const errorType = useSelector(state => state.authData.errorType)
 
   useEffect(() => {
     inputRef.current.focus()
@@ -31,7 +31,7 @@ const LoginForm = () => {
     dispatch(authUser(values)).finally(() => setSubmitting(false))
   }
 
-  const className = () => `form-control ${errorType === 'auth' ? 'is-invalid' : ''}`;
+  const className = () => `form-control ${errorType === 'auth' ? 'is-invalid' : ''}`
 
   const initialValues = {
     username: '',

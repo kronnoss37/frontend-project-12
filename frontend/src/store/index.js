@@ -5,7 +5,6 @@ import channelsReducer from './slices/channelsSlice'
 import messagesReducer from './slices/messagesSlice'
 import notificationsReducer from './slices/notificationsSlice'
 
-
 export default configureStore({
   reducer: {
     authData: authReducer,
@@ -13,4 +12,4 @@ export default configureStore({
     messagesData: messagesReducer,
     notifications: notificationsReducer,
   },
-});
+})

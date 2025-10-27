@@ -8,17 +8,17 @@ export const authUser = createAsyncThunk(
   'auth/authUser',
   async (user, { rejectWithValue }) => {
     try {
-      const response = await axios.post(routes.loginPath(), user);
-      const userData = response.data;
-      localStorage.setItem('user', JSON.stringify(userData));
+      const response = await axios.post(routes.loginPath(), user)
+      const userData = response.data
+      localStorage.setItem('user', JSON.stringify(userData))
       return { data: userData, notificationPath: 'authUser' }
     }
     catch (error) {
-      console.error(`Error: ${error?.response?.statusText ?? error.message}`);
+      console.error(`Error: ${error?.response?.statusText ?? error.message}`)
       if (error.response?.status === 401) {
-        return rejectWithValue({ type: 'auth'})
+        return rejectWithValue({ type: 'auth' })
       }
-      return rejectWithValue(handleErrors(error));
+      return rejectWithValue(handleErrors(error))
     }
   },
 )
@@ -46,15 +46,15 @@ const authSlice = createSlice({
     builder
       .addCase(authUser.fulfilled, (state, action) => {
         const { data } = action.payload
-        state.user = data;
+        state.user = data
         state.isAuth = true
-        state.errorType = null;
+        state.errorType = null
       })
       .addCase(authUser.rejected, (state, action) => {
-        if (!action.payload) return;
+        if (!action.payload) return
         const { type } = action.payload
         processLogOut(state)
-        state.errorType = type;
+        state.errorType = type
       })
   },
 })

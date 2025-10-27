@@ -1,7 +1,7 @@
 import { io } from 'socket.io-client'
 
 import { addMessage } from './store/slices/messagesSlice'
-import { addChannel, editChannel, removeChannel } from './store/slices/channelsSlice';
+import { addChannel, editChannel, removeChannel } from './store/slices/channelsSlice'
 
 export default (store) => {
   const socket = io()
@@ -19,14 +19,14 @@ export default (store) => {
   })
 
   socket.on('newChannel', (payload) => {
-    store.dispatch(addChannel(payload));
-  });
+    store.dispatch(addChannel(payload))
+  })
 
   socket.on('renameChannel', (payload) => {
-    store.dispatch(editChannel(payload));
+    store.dispatch(editChannel(payload))
   })
 
   socket.on('removeChannel', (payload) => {
-    store.dispatch(removeChannel(payload));
-  });
+    store.dispatch(removeChannel(payload))
+  })
 }

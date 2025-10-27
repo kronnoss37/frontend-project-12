@@ -1,5 +1,5 @@
-import i18next from 'i18next';
-import { initReactI18next } from 'react-i18next';
+import i18next from 'i18next'
+import { initReactI18next } from 'react-i18next'
 
 import resources from './locales/index'
 
@@ -13,8 +13,8 @@ const initI18next = () => {
     interpolation: {
       escapeValue: false,
     },
-  };
+  }
   i18n.use(initReactI18next).init(options)
-};
+}
 
-export default initI18next;
+export default initI18next
