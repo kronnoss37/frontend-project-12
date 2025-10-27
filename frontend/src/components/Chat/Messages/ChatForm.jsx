@@ -1,19 +1,27 @@
-import React, { useState } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { Form, InputGroup, Button } from 'react-bootstrap'
 
+import LoadingButton from '../../../buttons/LoadingButton'
+
 const ChatForm = ({ addNewMessage, isLoadingMessage }) => {
-  const [message, setMessage] = useState('');
-  const isInvalid = !message.trim();
+  const [message, setMessage] = useState('')
+  const isInvalid = !message.trim()
+
+  const inputRef = useRef(null)
+
+  useEffect(() => {
+      inputRef.current.focus()
+    }, [])
 
   const onChange = ({ target: { value } }) => {
-    setMessage(value);
-  };
+    setMessage(value)
+  }
 
   const onSubmit = (event) => {
-    event.preventDefault();
-    addNewMessage(message);
-    setMessage('');
-  };
+    event.preventDefault()
+    addNewMessage(message)
+    setMessage('')
+  }
 
   return (
     <div className='mt-auto px-5 py-3'>
@@ -26,14 +34,10 @@ const ChatForm = ({ addNewMessage, isLoadingMessage }) => {
             className='border-0 p-0 ps-2'
             value={message}
             onChange={onChange}
+            ref={inputRef}
           />
           {isLoadingMessage ? (
-            <Button variant='light' type='button' disabled>
-              <span className='spinner-border spinner-border-sm text-dark' aria-hidden='true'></span>
-              <span className='visually-hidden' role='status'>
-                Loading...
-              </span>
-            </Button>
+            <LoadingButton isVisuallyHidden={true} variant='light' spinnerColor='text-dark' />
           ) : (
             <Button type='submit' variant='light' className='btn-group-vertical' disabled={isInvalid}>
               <svg
@@ -56,6 +60,6 @@ const ChatForm = ({ addNewMessage, isLoadingMessage }) => {
       </Form>
     </div>
   );
-};
+}
 
 export default ChatForm
