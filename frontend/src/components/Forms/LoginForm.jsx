@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router'
 import { Button } from 'react-bootstrap'
 
 import { authUser } from '../../store/slices/authSlice'
+import LoadingButton from '../../buttons/LoadingButton'
 
 const LoginForm = () => {
   const navigate = useNavigate()
@@ -14,7 +15,7 @@ const LoginForm = () => {
   const dispatch = useDispatch()
 
   const isAuth = useSelector(state => state.authData.isAuth)
-  const errorData = useSelector(state => state.authData.error)
+  const errorType = useSelector((state) => state.authData.errorType);
 
   useEffect(() => {
     inputRef.current.focus()
@@ -30,7 +31,7 @@ const LoginForm = () => {
     dispatch(authUser(values)).finally(() => setSubmitting(false))
   }
 
-  const className = () => `form-control ${errorData?.type === 'auth' ? 'is-invalid' : ''}`
+  const className = () => `form-control ${errorType === 'auth' ? 'is-invalid' : ''}`;
 
   const initialValues = {
     username: '',
@@ -69,11 +70,7 @@ const LoginForm = () => {
           </div>
           {isSubmitting
             ? (
-                <Button variant="primary" type="button" disabled>
-                  <span className="spinner-border spinner-border-sm" aria-hidden="true"></span>
-                  {' '}
-                  <span role="status">Loading...</span>
-                </Button>
+                <LoadingButton />
               )
             : (
                 <Button type="submit" variant="outline-primary" className="w-100 mb-3">Войти</Button>
