@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
 import routes from '../../routes'
+import handleErrors from '../../utils/handleErrors';
 
 const getRequestBody = token => ({
   headers: {
@@ -11,55 +12,63 @@ const getRequestBody = token => ({
 
 const getChannels = createAsyncThunk(
   'channels/getChannels',
-  async (token) => {
+  async (token, {rejectWithValue}) => {
     try {
       const response = await axios.get(routes.channelsPath(), getRequestBody(token))
       return response.data
     }
     catch (error) {
-      console.error(`Error: ${error?.response?.statusText ?? error.message}`)
+      console.error(`Error: ${error?.response?.statusText ?? error.message}`);
+      // return rejectWithValue(handleErrors(error));
+      throw error;
     }
   },
 )
 
-const addChannel = createAsyncThunk(
+const addAsyncChannel = createAsyncThunk(
   'channels/addChannel',
-  async ({ token, newChannel }) => {
+  async ({ token, newChannel }, { rejectWithValue}) => {
     try {
       const response = await axios.post(routes.channelsPath(), newChannel, getRequestBody(token))
       console.log('response', response)
-      return response.data
+      // return response.data
+      return { notificationPath: 'addChannel' };
     }
     catch (error) {
-      console.error(`Error: ${error?.response?.statusText ?? error.message}`)
+      console.error(`Error: ${error?.response?.statusText ?? error.message}`);
+      return rejectWithValue(handleErrors(error));
     }
   },
 )
 
-const editChannel = createAsyncThunk(
+const editAsyncChannel = createAsyncThunk(
   'channels/editChannel',
-  async ({ token, id, editedChannel }) => {
+  async ({ token, id, editedChannel }, { rejectWithValue}) => {
     try {
       const response = await axios.patch(routes.channelsPath(id), editedChannel, getRequestBody(token))
       console.log('response', response)
-      return response.data
+      // return response.data
+      return { notificationPath: 'renameChannel' };
     }
     catch (error) {
-      console.error(`Error: ${error?.response?.statusText ?? error.message}`)
+      console.error(`Error: ${error?.response?.statusText ?? error.message}`);
+      return rejectWithValue(handleErrors(error));
     }
   },
 )
 
-const removeChannel = createAsyncThunk(
+const removeAsyncChannel = createAsyncThunk(
   'channels/removeChannel',
-  async ({ token, id }) => {
+  async ({ token, id }, { rejectWithValue}) => {
     try {
       const response = await axios.delete(routes.channelsPath(id), getRequestBody(token))
       console.log('response', response)
-      return response.data
+      // return response.data
+      return { notificationPath: 'removeChannel' };
     }
     catch (error) {
-      console.error(`Error: ${error?.response?.statusText ?? error.message}`)
+      console.error(`Error: ${error?.response?.statusText ?? error.message}`);
+      return rejectWithValue(handleErrors(error));
     }
   },
 )
@@ -67,51 +76,57 @@ const removeChannel = createAsyncThunk(
 const initialState = {
   channels: [],
   currentChannel: null,
+  modal: {
+    type: null,
+    selectedChannel: null
+  }
 }
 
 const channelsSlice = createSlice({
   name: 'channels',
   initialState,
   reducers: {
-    setCurrentChannel: (state, action) => {
+    addChannel: (state, action) => {
       const newChannel = action.payload
-      state.currentChannel = newChannel
+      state.channels.push(newChannel);
+      state.currentChannel = newChannel;
     },
+    editChannel: (state, action) => {
+      const newChannel = action.payload;
+      const index = state.channels.findIndex(({ id }) => id === newChannel.id)
+      state.channels[index] = newChannel;
+      state.currentChannel = state.currentChannel?.id === newChannel.id ? newChannel : state.currentChannel;
+    },
+    removeChannel: (state, action) => {
+      const { id } = action.payload;
+      const restChannels = state.channels.filter((channel) => channel.id !== id);
+      state.channels = restChannels;
+      state.currentChannel = state.currentChannel?.id === id ? state.channels[0] : state.currentChannel;
+    },
+    setCurrentChannel: (state, action) => {
+      const newChannel = action.payload;
+      state.currentChannel = newChannel;
+    },
+
+    openModal: (state, action) => {
+      console.log('action.payload', action.payload);
+      state.modal = { ...state.modal, ...action.payload}
+    },
+    closeModal: (state) => {
+      state.modal = { type: null, selectedChannel: null };
+    }
   },
   extraReducers: (builder) => {
     builder
       .addCase(getChannels.fulfilled, (state, action) => {
-        const channels = action.payload
-        state.channels = channels
-        state.currentChannel = channels?.[0]
+        const channels = action.payload;
+        state.channels = channels;
+        state.currentChannel = channels?.[0];
       })
-      .addCase(addChannel.fulfilled, (state, action) => {
-        const newChannel = action.payload
-        state.channels.push(newChannel)
-        state.currentChannel = newChannel
-      })
-      .addCase(editChannel.fulfilled, (state, action) => {
-        const newChannel = action.payload
-        const restChannels = state.channels.filter(({ id }) => id !== newChannel.id)
-        state.channels = [...restChannels, newChannel]
-      })
-      .addCase(removeChannel.fulfilled, (state, action) => {
-        const { id } = action.payload
-        const restChannels = state.channels.filter(channel => channel.id !== id)
-        state.channels = restChannels
-      })
-      // .addMatcher(
-      //   (action) => action.type.endsWith('/rejected'), // && action.type.startsWith(''), нужно ли состояние ошибки?
-      //   (state, action) => {
-      //     console.log('rejected channel', action);
-      //     const errorData = action.payload;
-      //     state.channels = null;
-      //     state.error = errorData;
-      //   }
-      // );
   },
-})
+});
 
-export { getChannels }
-export const { setCurrentChannel } = channelsSlice.actions
+export { getChannels, addAsyncChannel, editAsyncChannel, removeAsyncChannel }
+
+export const { setCurrentChannel, addChannel, editChannel, removeChannel, openModal, closeModal } = channelsSlice.actions;
 export default channelsSlice.reducer

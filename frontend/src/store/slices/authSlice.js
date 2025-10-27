@@ -2,25 +2,23 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
 import routes from '../../routes'
+import handleErrors from '../../utils/handleErrors'
 
 export const authUser = createAsyncThunk(
   'auth/authUser',
   async (user, { rejectWithValue }) => {
     try {
-      const response = await axios.post(routes.loginPath(), user)
-      const userData = response.data
-      localStorage.setItem('user', JSON.stringify(userData))
-      return userData
+      const response = await axios.post(routes.loginPath(), user);
+      const userData = response.data;
+      localStorage.setItem('user', JSON.stringify(userData));
+      return { data: userData, notificationPath: 'authUser' }
     }
     catch (error) {
+      console.error(`Error: ${error?.response?.statusText ?? error.message}`);
       if (error.response?.status === 401) {
-        return rejectWithValue({ type: 'auth', pathMessage: '' })
+        return rejectWithValue({ type: 'auth'})
       }
-      if (error?.code === 'ERR_NETWORK') {
-        return rejectWithValue({ type: 'network', pathMessage: '' })
-      }
-      console.log(`Error: ${error?.response?.statusText ?? error.message}`)
-      return rejectWithValue(null)
+      return rejectWithValue(handleErrors(error));
     }
   },
 )
@@ -35,7 +33,7 @@ const userData = JSON.parse(localStorage.getItem('user'))
 const initialState = {
   user: userData ?? null,
   isAuth: !!userData,
-  error: null,
+  errorType: null,
 }
 
 const authSlice = createSlice({
@@ -47,15 +45,16 @@ const authSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(authUser.fulfilled, (state, action) => {
-        const user = action.payload
-        state.user = user
+        const { data } = action.payload
+        state.user = data;
         state.isAuth = true
-        state.error = null
+        state.errorType = null;
       })
       .addCase(authUser.rejected, (state, action) => {
-        const errorData = action.payload
+        if (!action.payload) return;
+        const { type } = action.payload
         processLogOut(state)
-        state.error = errorData
+        state.errorType = type;
       })
   },
 })
