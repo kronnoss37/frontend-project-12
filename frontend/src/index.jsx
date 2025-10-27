@@ -7,7 +7,7 @@ import App from './components/App'
 import store from './store'
 import initSocket from './client'
 
-initSocket(store);
+initSocket(store)
 
 const mountNode = document.querySelector('#chat')
 const root = ReactDOM.createRoot(mountNode)
