@@ -7,8 +7,8 @@ const ru = {
     },
     messages: {
       message_one: '{{count}} сообщение',
-      message_one: '{{count}} сообщения',
-      message_one: '{{count}} сообщений',
+      message_few: '{{count}} сообщения',
+      message_many: '{{count}} сообщений',
     },
     channels: {
       title: 'Каналы',
@@ -60,7 +60,18 @@ const ru = {
         registration: 'Регистрация прошла успешно!',
       },
     },
+    signUpPage: {
+      altImage: 'Регистрация',
+    },
+    signUpForm: {
+      title: 'Регистрация',
+      usernameLabel: 'Имя пользователя',
+      passwordLabel: 'Пароль',
+      passwordConfirmLabel: 'Подтвердите пароль',
+      signupError: 'Такой пользователь уже существует',
+      submitButton: 'Зарегистрироваться',
+    },
   },
-}
+};
 
 export default ru
