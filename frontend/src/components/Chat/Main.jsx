@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import Channels from './Channels/Channels'
 import Chat from './Messages/Chat'
 import renderModal from '../../modals/index'
+
+import { logOut } from '../../store/slices/authSlice'
 import { setCurrentChannel, getChannels, openModal, closeModal } from '../../store/slices/channelsSlice'
 import { getMessages, addAsyncMessage } from '../../store/slices/messagesSlice'
 
@@ -33,10 +35,20 @@ const Main = () => {
   console.log('channels', channels)
 
   useEffect(() => {
-    if (token) {
-      dispatch(getChannels(token))
-      dispatch(getMessages(token))
+    const fetch = async () => {
+      try {
+        if (token) {
+          await dispatch(getChannels(token)).unwrap()
+          await dispatch(getMessages(token)).unwrap();
+        }
+      } catch (errorData) {
+        if(errorData?.type === 'auth') {
+          dispatch(logOut())
+          localStorage.removeItem('user')
+        }
+      }
     }
+    fetch()
   }, [dispatch, token])
 
   const changeChannel = newChannel => dispatch(setCurrentChannel(newChannel))

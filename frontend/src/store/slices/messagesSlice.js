@@ -13,14 +13,14 @@ const getRequestBody = token => ({
 
 const getMessages = createAsyncThunk(
   'messages/getMessages',
-  async (token) => {
+  async (token, {rejectWithValue}) => {
     try {
       const response = await axios.get(routes.messagesPath(), getRequestBody(token))
       return response.data
     }
     catch (error) {
       console.error(`Error: ${error?.response?.statusText ?? error.message}`)
-      throw error
+      return rejectWithValue(handleErrors(error));
     }
   },
 )

@@ -19,8 +19,7 @@ const getChannels = createAsyncThunk(
     }
     catch (error) {
       console.error(`Error: ${error?.response?.statusText ?? error.message}`)
-      // return rejectWithValue(handleErrors(error));
-      throw error
+      return rejectWithValue(handleErrors(error))
     }
   },
 )
