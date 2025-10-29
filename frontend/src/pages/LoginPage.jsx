@@ -3,7 +3,7 @@ import { Link } from 'react-router'
 import { Container, Row, Col, Card, Image } from 'react-bootstrap'
 
 import LoginForm from '../components/Forms/LoginForm'
-import loginPicture from '../assets/avatar.jpg'
+import loginPicture from '../assets/login.jpg'
 
 const LoginPage = () => {
   return (
@@ -21,7 +21,7 @@ const LoginPage = () => {
               <div className="text-center">
                 <span>Нет аккаунта?</span>
                 {' '}
-                <Link to="/">Регистрация</Link>
+                <Link to="/signup">Регистрация</Link>
               </div>
             </Card.Footer>
           </Card>

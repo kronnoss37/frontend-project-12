@@ -47,7 +47,7 @@ const ModalForm = ({ onHide, channels, handleSubmit, channel }) => {
             <label htmlFor="name" className="visually-hidden">
               Имя канала
             </label>
-            <div className="invalid-feedback">{errors.name && touched.name ? errors.name : ''}</div>
+            <div className="invalid-feedback">{errors.name}</div>
             <div className="d-flex justify-content-end">
               <Button variant="secondary" className="me-2" onClick={onHide}>
                 Отменить
