@@ -15,6 +15,7 @@ const initI18next = () => {
     },
   }
   i18n.use(initReactI18next).init(options)
+  return i18n
 }
 
 export default initI18next

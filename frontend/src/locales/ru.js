@@ -1,7 +1,33 @@
 const ru = {
   translation: {
+    navbar: {
+      brand: 'Hexlet Chat',
+      logoutButton: 'Выйти',
+    },
+    loginPage: {
+      altImage: 'Войти',
+      question: 'Нет аккаунта?',
+      registration: 'Регистрация',
+    },
+    loginForm: {
+      title: 'Войти',
+      usernameLabel: 'Ваш ник',
+      passwordLabel: 'Пароль',
+      submitButton: 'Войти',
+    },
+    signUpPage: {
+      altImage: 'Регистрация',
+    },
+    signUpForm: {
+      title: 'Регистрация',
+      usernameLabel: 'Имя пользователя',
+      passwordLabel: 'Пароль',
+      passwordConfirmLabel: 'Подтвердите пароль',
+      submitButton: 'Зарегистрироваться',
+    },
+    notFoundPage: {},
     chatForm: {
-      send: 'Отправить',
+      sendButton: 'Отправить',
       ariaLabel: 'Новое сообщение',
       placeholder: 'Введите сообщение...',
     },
@@ -20,20 +46,6 @@ const ru = {
         rename: 'Переименовать',
       },
     },
-    loginForm: {
-      title: 'Войти',
-      usernameLabel: 'Ваш ник',
-      passwordLabel: 'Пароль',
-      authError: 'Неверные имя пользователя или пароль',
-      submitButton: 'Войти',
-    },
-    navbar: {
-      brand: 'Hexlet Chat',
-      logoutButton: 'Выйти',
-    },
-    loadingButton: {
-      status: 'Загрузка...',
-    },
     modals: {
       addTitle: 'Добавить канал',
       removeTitle: 'Удалить канал',
@@ -44,14 +56,28 @@ const ru = {
       nameChannelLabel: 'Имя канала',
       removeConfirmation: 'Уверены?',
     },
-    loginPage: {
-      altImage: 'Войти',
-      question: 'Нет аккаунта?',
-      registration: 'Регистрация',
+    loadingButton: {
+      status: 'Загрузка...',
     },
-    notFoundPage: {},
+    controlErrors: {
+      requiredField: 'Обязательное поле',
+      identicalPasswords: 'Пароли должны совпадать',
+      fieldLength: 'От 3 до 20 символов',
+      minPasswordSymbols: 'Не менее 6 символов',
+      uniqueField: 'Должно быть уникальным',
+      authError: 'Неверные имя пользователя или пароль',
+      signupError: 'Такой пользователь уже существует',
+    },
     notifications: {
-      errors: {},
+      errors: {
+        addChannel: '',
+        removeChannel: '',
+        renameChannel: '',
+        authError: '', // ??
+        signupError: '', // ??
+        network: 'Ошибка соединения',
+        server: 'Server',
+      },
       success: {
         addChannel: 'Канал создан',
         renameChannel: 'Канал переименован',
@@ -59,17 +85,6 @@ const ru = {
         auth: 'Вы вошли в аккаунт!',
         registration: 'Регистрация прошла успешно!',
       },
-    },
-    signUpPage: {
-      altImage: 'Регистрация',
-    },
-    signUpForm: {
-      title: 'Регистрация',
-      usernameLabel: 'Имя пользователя',
-      passwordLabel: 'Пароль',
-      passwordConfirmLabel: 'Подтвердите пароль',
-      signupError: 'Такой пользователь уже существует',
-      submitButton: 'Зарегистрироваться',
     },
   },
 };

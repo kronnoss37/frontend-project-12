@@ -3,30 +3,35 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router'
 import { Formik, Form, Field } from 'formik'
 import { Button } from 'react-bootstrap'
+import { useTranslation } from 'react-i18next';
 import * as yup from 'yup'
 
 import { signupUser, changeErrorType } from '../../store/slices/authSlice'
 import LoadingButton from '../../buttons/LoadingButton'
 
-yup.setLocale({
-  mixed: {
-    required: () => 'Обязательное поле',
-    oneOf: () => 'Пароли должны совпадать',
-  },
-  string: {
-    min: ({ path }) => (path === 'username' ? 'От 3 до 20 символов' : 'Не менее 6 символов'),
-    max: () => 'От 3 до 20 символов',
-  },
-});
-
-const initSchema = () =>
+const initSchema = t => (
   yup.object().shape({
-    username: yup.string().trim().required().min(3).max(20),
-    password: yup.string().trim().required().min(6),
-    confirmPassword: yup.string().trim().required().oneOf([yup.ref('password')]),
-  });
+    username: yup
+      .string()
+      .trim()
+      .required(t('controlErrors.requiredField'))
+      .min(3, t('controlErrors.fieldLength'))
+      .max(20, t('controlErrors.fieldLength')),
+    password: yup
+      .string()
+      .trim()
+      .required(t('controlErrors.requiredField'))
+      .min(6, t('controlErrors.minPasswordSymbols')),
+    confirmPassword: yup
+      .string()
+      .trim()
+      .required(t('controlErrors.requiredField'))
+      .oneOf([yup.ref('password')], t('controlErrors.identicalPasswords')),
+  }))
 
 const SignUpForm = () => {
+  const { t } = useTranslation()
+
   const navigate = useNavigate()
 
   const inputRef = useRef(null)
@@ -53,8 +58,6 @@ const SignUpForm = () => {
   }
   
   const isSignUpError = errorType === 'signup';
-  console.log('isSignUpError', isSignUpError);
-  console.log('errorType', errorType);
   const className = (errors, touched, type) => `form-control ${isSignUpError || (errors[type] && touched[type]) ? 'is-invalid' : ''}`;
 
   const initialValues = {
@@ -64,7 +67,7 @@ const SignUpForm = () => {
   };
 
   return (
-    <Formik initialValues={initialValues} validationSchema={initSchema()} onSubmit={handleSubmit} validateOnChange={false}>
+    <Formik initialValues={initialValues} validationSchema={initSchema(t)} onSubmit={handleSubmit} validateOnChange={false}>
       {({ values, errors, touched, isSubmitting }) => {
         useEffect(() => { // necessary for a better UX
           if(values.username && isSignUpError) {
@@ -74,20 +77,20 @@ const SignUpForm = () => {
 
         return (
           <Form className='w-50'>
-            <h1 className='text-center mb-4'>Регистрация</h1>
+            <h1 className='text-center mb-4'>{t('signUpForm.title')}</h1>
             <div className='form-floating mb-3'>
               <Field
                 name='username'
                 id='username'
                 autoComplete='username'
                 className={className(errors, touched, 'username')}
-                placeholder='Имя пользователя'
+                placeholder={t('signUpForm.usernameLabel')}
                 ref={inputRef}
               />
               <label className='form-label' htmlFor='username'>
-                Имя пользователя
+                {t('signUpForm.usernameLabel')}
               </label>
-              <div className='invalid-feedback'>{errors.username}</div> {/** ?? */}
+              <div className='invalid-feedback'>{errors.username}</div>
             </div>
             <div className='form-floating mb-3'>
               <Field
@@ -96,11 +99,11 @@ const SignUpForm = () => {
                 type='password'
                 autoComplete='new-password'
                 className={className(errors, touched, 'password')}
-                placeholder='Пароль'
+                placeholder={t('signUpForm.passwordLabel')}
                 aria-describedby='passwordHelpBlock'
               />
               <label className='form-label' htmlFor='password'>
-                Пароль
+                {t('signUpForm.passwordLabel')}
               </label>
               <div className='invalid-feedback'>{errors.password}</div>
             </div>
@@ -111,23 +114,22 @@ const SignUpForm = () => {
                 type='password'
                 autoComplete='new-password'
                 className={className(errors, touched, 'confirmPassword')}
-                placeholder='Подтвердите пароль'
+                placeholder={t('signUpForm.passwordConfirmLabel')}
               />
               <label className='form-label' htmlFor='confirmPassword'>
-                Подтвердите пароль
+                {t('signUpForm.passwordConfirmLabel')}
               </label>
-              <div className='invalid-feedback'>
-                {errors.confirmPassword ?? (isSignUpError ? 'Такой пользователь уже существует' : '')}
-              </div>
+              <div className='invalid-feedback'>{errors.confirmPassword ?? (isSignUpError ? t('controlErrors.signupError') : '')}</div>
             </div>
             {isSubmitting ? (
               <LoadingButton />
             ) : (
               <Button type='submit' variant='outline-primary' className='w-100'>
-                Зарегистрироваться
+                {t('signUpForm.submitButton')}
               </Button>
             )}
-          </Form>)
+          </Form>
+        );
       }}
     </Formik>
   );

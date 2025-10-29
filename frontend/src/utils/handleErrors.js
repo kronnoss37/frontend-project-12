@@ -8,11 +8,11 @@ const handleErrors = (error) => {
   }
 
   if (error?.code === 'ERR_NETWORK') {
-    return { notificationPath: 'Network' }
+    return { notificationPath: 'notifications.errors.network' };
   }
 
   if (error.response?.status >= 500) {
-    return { notificationPath: 'Server' }
+    return { notificationPath: 'notifications.errors.server' };
   }
 
   return null
