@@ -70,11 +70,11 @@ const ru = {
     },
     notifications: {
       errors: {
-        addChannel: '',
-        removeChannel: '',
-        renameChannel: '',
-        authError: '', // ??
-        signupError: '', // ??
+        addChannel: 'Ошибка при добавлении канала',
+        removeChannel: 'Ошибка при удалении канала',
+        renameChannel: 'Ошибка при переименовании канала',
+        authError: 'Ошибка при авторизации', // ??
+        signupError: 'Ошибка при регистрации', // ??
         network: 'Ошибка соединения',
         server: 'Server',
       },

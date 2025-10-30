@@ -11,9 +11,7 @@ import { getMessages, addAsyncMessage } from '../../store/slices/messagesSlice'
 
 const Main = () => {
   const dispatch = useDispatch()
-
   // Сделать состояние isLoading в channels и в auth ???
-  // подключить i18n
 
   const userData = useSelector(state => state.authData.user)
   const channels = useSelector(state => state.channelsData.channels)
@@ -22,9 +20,6 @@ const Main = () => {
 
   const messages = useSelector(state => state.messagesData.messages)
   const isLoadingMessage = useSelector(state => state.messagesData.isLoadingMessage)
-
-  const notification = useSelector(state => state.notifications.notification)
-  console.log('notification', notification)
 
   const token = userData?.token
 

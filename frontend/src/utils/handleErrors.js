@@ -1,10 +1,10 @@
 const handleErrors = (error) => {
   if (error.response?.status === 401) {
-    return { type: 'auth' };
+    return { type: 'auth', notificationPath: 'notifications.errors.authError' };
   }
 
   if (error.response?.status === 409) {
-    return { type: 'signup' };
+    return { type: 'signup', notificationPath: 'notifications.errors.signupError' };
   }
 
   if (error?.code === 'ERR_NETWORK') {

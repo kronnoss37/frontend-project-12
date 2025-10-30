@@ -4,6 +4,7 @@ const initialState = {
   notification: {
     type: null, // error | success | null
     path: '',
+    eventTitlePath: '',
   },
 }
 
@@ -17,7 +18,9 @@ const notificationsSlice = createSlice({
       .addMatcher(
         action => action.type.endsWith('/pending'),
         (state) => {
-          state.type = null
+          state.notification.type = null;
+          state.notification.path = '';
+          state.notification.eventTitlePath = '';
         },
       )
       .addMatcher(
@@ -27,7 +30,9 @@ const notificationsSlice = createSlice({
           console.log('notify fulfilled', action.payload)
           const data = action.payload
           if (data?.notificationPath) {
-            state.notification = { type: 'success', path: data.notificationPath }
+            // state.notification = { type: 'success', path: data.notificationPath }
+            state.notification.type = 'success';
+            state.notification.path = data.notificationPath;
           }
         },
       )
@@ -38,7 +43,13 @@ const notificationsSlice = createSlice({
           console.log('notify rejected', action.payload)
           const data = action.payload
           if (data?.notificationPath) {
-            state.notification = { type: 'error', path: data.notificationPath }
+            // state.notification = { type: 'error', path: data.notificationPath }
+            state.notification.type = 'error';
+            state.notification.path = data.notificationPath;
+          }
+          if (data?.eventPath) {
+            state.notification.type = 'error';
+            state.notification.eventTitlePath = data.eventPath;
           }
         },
       )

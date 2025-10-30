@@ -16,7 +16,7 @@ const getMessages = createAsyncThunk(
   async (token, {rejectWithValue}) => {
     try {
       const response = await axios.get(routes.messagesPath(), getRequestBody(token))
-      return response.data
+      return { data: response.data };
     }
     catch (error) {
       console.error(`Error: ${error?.response?.statusText ?? error.message}`)
@@ -27,14 +27,14 @@ const getMessages = createAsyncThunk(
 
 const addAsyncMessage = createAsyncThunk(
   'messages/addMessage',
-  async ({ token, newMessage }) => {
+  async ({ token, newMessage }, {rejectWithValue}) => {
     try {
-      const response = await axios.post(routes.messagesPath(), newMessage, getRequestBody(token))
+      await axios.post(routes.messagesPath(), newMessage, getRequestBody(token))
       // return response.data
     }
     catch (error) {
       console.error(`Error: ${error?.response?.statusText ?? error.message}`)
-      throw error
+      return rejectWithValue(handleErrors(error));
     }
   },
 )
@@ -57,7 +57,7 @@ const messagesSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getMessages.fulfilled, (state, action) => {
-        const messages = action.payload
+        const { data: messages } = action.payload
         state.messages = messages
       })
     builder
@@ -71,7 +71,6 @@ const messagesSlice = createSlice({
     builder
       .addCase(removeChannel, (state, action) => {
         const channelId = action.payload.id
-        console.log('channelId', channelId)
         const restMessages = state.messages.filter(message => message.channelId !== channelId)
         state.messages = restMessages
       })

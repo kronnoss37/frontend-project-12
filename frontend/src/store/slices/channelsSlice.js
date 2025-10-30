@@ -15,7 +15,7 @@ const getChannels = createAsyncThunk(
   async (token, { rejectWithValue }) => {
     try {
       const response = await axios.get(routes.channelsPath(), getRequestBody(token))
-      return response.data
+      return { data: response.data }
     }
     catch (error) {
       console.error(`Error: ${error?.response?.statusText ?? error.message}`)
@@ -28,14 +28,14 @@ const addAsyncChannel = createAsyncThunk(
   'channels/addChannel',
   async ({ token, newChannel }, { rejectWithValue }) => {
     try {
-      const response = await axios.post(routes.channelsPath(), newChannel, getRequestBody(token))
-      console.log('response', response)
+      await axios.post(routes.channelsPath(), newChannel, getRequestBody(token))
+      // console.log('response', response)
       // return response.data
-      return { notificationPath: 'addChannel' }
+      return { notificationPath: 'notifications.success.addChannel' };
     }
     catch (error) {
       console.error(`Error: ${error?.response?.statusText ?? error.message}`)
-      return rejectWithValue(handleErrors(error))
+      return rejectWithValue({ ...handleErrors(error), eventPath: 'notifications.errors.addChannel' });
     }
   },
 )
@@ -44,14 +44,14 @@ const editAsyncChannel = createAsyncThunk(
   'channels/editChannel',
   async ({ token, id, editedChannel }, { rejectWithValue }) => {
     try {
-      const response = await axios.patch(routes.channelsPath(id), editedChannel, getRequestBody(token))
-      console.log('response', response)
+      await axios.patch(routes.channelsPath(id), editedChannel, getRequestBody(token))
+      // console.log('response', response)
       // return response.data
-      return { notificationPath: 'renameChannel' }
+      return { notificationPath: 'notifications.success.renameChannel' };
     }
     catch (error) {
       console.error(`Error: ${error?.response?.statusText ?? error.message}`)
-      return rejectWithValue(handleErrors(error))
+      return rejectWithValue({ ...handleErrors(error), eventPath: 'notifications.errors.renameChannel' });
     }
   },
 )
@@ -60,14 +60,14 @@ const removeAsyncChannel = createAsyncThunk(
   'channels/removeChannel',
   async ({ token, id }, { rejectWithValue }) => {
     try {
-      const response = await axios.delete(routes.channelsPath(id), getRequestBody(token))
-      console.log('response', response)
+      await axios.delete(routes.channelsPath(id), getRequestBody(token))
+      // console.log('response', response)
       // return response.data
-      return { notificationPath: 'removeChannel' }
+      return { notificationPath: 'notifications.success.removeChannel' };
     }
     catch (error) {
       console.error(`Error: ${error?.response?.statusText ?? error.message}`)
-      return rejectWithValue(handleErrors(error))
+      return rejectWithValue({ ...handleErrors(error), eventPath: 'notifications.errors.removeChannel' });
     }
   },
 )
@@ -108,7 +108,6 @@ const channelsSlice = createSlice({
     },
 
     openModal: (state, action) => {
-      console.log('action.payload', action.payload)
       state.modal = { ...state.modal, ...action.payload }
     },
     closeModal: (state) => {
@@ -118,7 +117,7 @@ const channelsSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getChannels.fulfilled, (state, action) => {
-        const channels = action.payload
+        const { data: channels } = action.payload
         state.channels = channels
         state.currentChannel = channels?.[0]
       })

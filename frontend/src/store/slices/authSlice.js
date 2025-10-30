@@ -18,7 +18,7 @@ export const authUser = createAsyncThunk(
       const response = await axios.post(routes.loginPath(), user)
       const userData = response.data
       localStorage.setItem('user', JSON.stringify(userData))
-      return { data: userData, notificationPath: 'authUser' }
+      return { data: userData, notificationPath: 'notifications.success.auth' };
     }
     catch (error) {
       console.error(`Error: ${error?.response?.statusText ?? error.message}`)
@@ -34,7 +34,7 @@ export const signupUser = createAsyncThunk(
       const response = await axios.post(routes.signupPath(), user)
       const userData = response.data
       localStorage.setItem('user', JSON.stringify(userData))
-      return { data: userData, notificationPath: 'signupUser' }
+      return { data: userData, notificationPath: 'notifications.success.registration' };
     } catch (error) {
       console.error(`Error: ${error?.response?.statusText ?? error.message}`)
       return rejectWithValue(handleErrors(error))
