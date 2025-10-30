@@ -1,4 +1,5 @@
 import React from 'react'
+import filter from 'leo-profanity'
 
 const Messages = ({ channelMessages }) => {
   return (
@@ -7,7 +8,7 @@ const Messages = ({ channelMessages }) => {
         <div key={message.id} className="text-break mb-2">
           <b>{`${message.username}:`}</b>
           {' '}
-          {message.body}
+          {filter.clean(message.body)}
         </div>
       ))}
     </div>
