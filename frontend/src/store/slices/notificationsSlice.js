@@ -13,7 +13,6 @@ const notificationsSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    // Возможно, стоит сделать массив исключающих запросов
     builder
       .addMatcher(
         action => action.type.endsWith('/pending'),
@@ -26,11 +25,8 @@ const notificationsSlice = createSlice({
       .addMatcher(
         action => action.type.endsWith('/fulfilled'),
         (state, action) => {
-          console.log('action.type', action.type)
-          console.log('notify fulfilled', action.payload)
           const data = action.payload
           if (data?.notificationPath) {
-            // state.notification = { type: 'success', path: data.notificationPath }
             state.notification.type = 'success';
             state.notification.path = data.notificationPath;
           }
@@ -39,11 +35,8 @@ const notificationsSlice = createSlice({
       .addMatcher(
         action => action.type.endsWith('/rejected'),
         (state, action) => {
-          console.log('action.type', action.type)
-          console.log('notify rejected', action.payload)
           const data = action.payload
           if (data?.notificationPath) {
-            // state.notification = { type: 'error', path: data.notificationPath }
             state.notification.type = 'error';
             state.notification.path = data.notificationPath;
           }

@@ -4,13 +4,6 @@ import axios from 'axios'
 import routes from '../../routes'
 import handleErrors from '../../utils/handleErrors'
 
-const paths = { // ??
-  authError: '',
-  signupError: '',
-  authSuccess: '',
-  signupSuccess: ''
-}
-
 export const authUser = createAsyncThunk(
   'auth/authUser',
   async (user, { rejectWithValue }) => {

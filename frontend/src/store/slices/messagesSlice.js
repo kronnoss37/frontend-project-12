@@ -30,7 +30,6 @@ const addAsyncMessage = createAsyncThunk(
   async ({ token, newMessage }, {rejectWithValue}) => {
     try {
       await axios.post(routes.messagesPath(), newMessage, getRequestBody(token))
-      // return response.data
     }
     catch (error) {
       console.error(`Error: ${error?.response?.statusText ?? error.message}`)
