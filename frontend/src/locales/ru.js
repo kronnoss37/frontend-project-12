@@ -25,7 +25,11 @@ const ru = {
       passwordConfirmLabel: 'Подтвердите пароль',
       submitButton: 'Зарегистрироваться',
     },
-    notFoundPage: {},
+    notFoundPage: {
+      notFoundText: 'Страница не найдена',
+      description: 'Но вы можете перейти',
+      mainPageText: 'на главную страницу',
+    },
     chatForm: {
       sendButton: 'Отправить',
       ariaLabel: 'Новое сообщение',
@@ -73,10 +77,10 @@ const ru = {
         addChannel: 'Ошибка при добавлении канала',
         removeChannel: 'Ошибка при удалении канала',
         renameChannel: 'Ошибка при переименовании канала',
-        authError: 'Ошибка при авторизации', // ??
-        signupError: 'Ошибка при регистрации', // ??
+        authError: 'Ошибка при авторизации',
+        signupError: 'Ошибка при регистрации',
         network: 'Ошибка соединения',
-        server: 'Server',
+        server: 'Ошибка на стороне сервера',
       },
       success: {
         addChannel: 'Канал создан',
