@@ -72,7 +72,7 @@ const LoginForm = () => {
             <div className='invalid-feedback'>{t('controlErrors.authError')}</div>
           </div>
           {isSubmitting ? (
-            <LoadingButton />
+            <LoadingButton className='w-100 mb-3' />
           ) : (
             <Button type='submit' variant='outline-primary' className='w-100 mb-3'>
               {t('loginForm.submitButton')}

@@ -119,11 +119,10 @@ const SignUpForm = () => {
               <label className='form-label' htmlFor='confirmPassword'>
                 {t('signUpForm.passwordConfirmLabel')}
               </label>
-              {/* <div className='invalid-feedback'>{errors.confirmPassword ?? (isSignUpError ? t('controlErrors.signupError') : '')}</div> */}
               <div className='invalid-feedback'>{errors.confirmPassword ?? (isSignUpError && t('controlErrors.signupError'))}</div>
             </div>
             {isSubmitting ? (
-              <LoadingButton />
+              <LoadingButton className='w-100' />
             ) : (
               <Button type='submit' variant='outline-primary' className='w-100'>
                 {t('signUpForm.submitButton')}
