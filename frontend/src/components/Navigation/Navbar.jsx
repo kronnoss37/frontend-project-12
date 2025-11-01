@@ -2,7 +2,7 @@ import React from 'react'
 import { Link, useNavigate } from 'react-router'
 import { useSelector, useDispatch } from 'react-redux'
 import { Navbar, Container, Button } from 'react-bootstrap'
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next'
 
 import { logOut } from '../../store/slices/authSlice'
 

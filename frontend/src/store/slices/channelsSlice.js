@@ -29,11 +29,11 @@ const addAsyncChannel = createAsyncThunk(
   async ({ token, newChannel }, { rejectWithValue }) => {
     try {
       await axios.post(routes.channelsPath(), newChannel, getRequestBody(token))
-      return { notificationPath: 'notifications.success.addChannel' };
+      return { notificationPath: 'notifications.success.addChannel' }
     }
     catch (error) {
       console.error(`Error: ${error?.response?.statusText ?? error.message}`)
-      return rejectWithValue({ ...handleErrors(error), eventPath: 'notifications.errors.addChannel' });
+      return rejectWithValue({ ...handleErrors(error), eventPath: 'notifications.errors.addChannel' })
     }
   },
 )
@@ -43,11 +43,11 @@ const editAsyncChannel = createAsyncThunk(
   async ({ token, id, editedChannel }, { rejectWithValue }) => {
     try {
       await axios.patch(routes.channelsPath(id), editedChannel, getRequestBody(token))
-      return { notificationPath: 'notifications.success.renameChannel' };
+      return { notificationPath: 'notifications.success.renameChannel' }
     }
     catch (error) {
       console.error(`Error: ${error?.response?.statusText ?? error.message}`)
-      return rejectWithValue({ ...handleErrors(error), eventPath: 'notifications.errors.renameChannel' });
+      return rejectWithValue({ ...handleErrors(error), eventPath: 'notifications.errors.renameChannel' })
     }
   },
 )
@@ -57,11 +57,11 @@ const removeAsyncChannel = createAsyncThunk(
   async ({ token, id }, { rejectWithValue }) => {
     try {
       await axios.delete(routes.channelsPath(id), getRequestBody(token))
-      return { notificationPath: 'notifications.success.removeChannel' };
+      return { notificationPath: 'notifications.success.removeChannel' }
     }
     catch (error) {
       console.error(`Error: ${error?.response?.statusText ?? error.message}`)
-      return rejectWithValue({ ...handleErrors(error), eventPath: 'notifications.errors.removeChannel' });
+      return rejectWithValue({ ...handleErrors(error), eventPath: 'notifications.errors.removeChannel' })
     }
   },
 )

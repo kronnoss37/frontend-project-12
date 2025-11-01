@@ -1,6 +1,6 @@
 import React from 'react'
 import { Button } from 'react-bootstrap'
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next'
 
 const LoadingButton = ({ isVisuallyHidden = false, variant = 'primary', spinnerColor = '', className = '' }) => {
   const { t } = useTranslation()

@@ -11,7 +11,7 @@ import { getMessages, addAsyncMessage } from '../../store/slices/messagesSlice'
 
 const Main = () => {
   const dispatch = useDispatch()
-  
+
   const userData = useSelector(state => state.authData.user)
   const channels = useSelector(state => state.channelsData.channels)
   const currentChannel = useSelector(state => state.channelsData.currentChannel)
@@ -30,10 +30,11 @@ const Main = () => {
       try {
         if (token) {
           await dispatch(getChannels(token)).unwrap()
-          await dispatch(getMessages(token)).unwrap();
+          await dispatch(getMessages(token)).unwrap()
         }
-      } catch (errorData) {
-        if(errorData?.type === 'auth') {
+      }
+      catch (errorData) {
+        if (errorData?.type === 'auth') {
           dispatch(logOut())
           localStorage.removeItem('user')
         }

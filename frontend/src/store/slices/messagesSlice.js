@@ -13,27 +13,27 @@ const getRequestBody = token => ({
 
 const getMessages = createAsyncThunk(
   'messages/getMessages',
-  async (token, {rejectWithValue}) => {
+  async (token, { rejectWithValue }) => {
     try {
       const response = await axios.get(routes.messagesPath(), getRequestBody(token))
-      return { data: response.data };
+      return { data: response.data }
     }
     catch (error) {
       console.error(`Error: ${error?.response?.statusText ?? error.message}`)
-      return rejectWithValue(handleErrors(error));
+      return rejectWithValue(handleErrors(error))
     }
   },
 )
 
 const addAsyncMessage = createAsyncThunk(
   'messages/addMessage',
-  async ({ token, newMessage }, {rejectWithValue}) => {
+  async ({ token, newMessage }, { rejectWithValue }) => {
     try {
       await axios.post(routes.messagesPath(), newMessage, getRequestBody(token))
     }
     catch (error) {
       console.error(`Error: ${error?.response?.statusText ?? error.message}`)
-      return rejectWithValue(handleErrors(error));
+      return rejectWithValue(handleErrors(error))
     }
   },
 )

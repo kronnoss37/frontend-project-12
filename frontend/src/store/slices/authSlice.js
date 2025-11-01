@@ -11,7 +11,7 @@ export const authUser = createAsyncThunk(
       const response = await axios.post(routes.loginPath(), user)
       const userData = response.data
       localStorage.setItem('user', JSON.stringify(userData))
-      return { data: userData, notificationPath: 'notifications.success.auth' };
+      return { data: userData, notificationPath: 'notifications.success.auth' }
     }
     catch (error) {
       console.error(`Error: ${error?.response?.statusText ?? error.message}`)
@@ -27,12 +27,13 @@ export const signupUser = createAsyncThunk(
       const response = await axios.post(routes.signupPath(), user)
       const userData = response.data
       localStorage.setItem('user', JSON.stringify(userData))
-      return { data: userData, notificationPath: 'notifications.success.registration' };
-    } catch (error) {
+      return { data: userData, notificationPath: 'notifications.success.registration' }
+    }
+    catch (error) {
       console.error(`Error: ${error?.response?.statusText ?? error.message}`)
       return rejectWithValue(handleErrors(error))
     }
-  }
+  },
 )
 
 const processLogOut = (state) => {
@@ -55,30 +56,30 @@ const authSlice = createSlice({
     logOut: state => processLogOut(state),
     changeErrorType: (state, action) => {
       state.errorType = action.payload
-    }
+    },
   },
   extraReducers: (builder) => {
     builder
       .addMatcher(
-        (action) => action.type.startsWith('auth/') && action.type.endsWith('/fulfilled'),
+        action => action.type.startsWith('auth/') && action.type.endsWith('/fulfilled'),
         (state, action) => {
-          const { data } = action.payload;
-          state.user = data;
-          state.isAuth = true;
-          state.errorType = null;
-        }
+          const { data } = action.payload
+          state.user = data
+          state.isAuth = true
+          state.errorType = null
+        },
       )
       .addMatcher(
-        (action) => action.type.startsWith('auth/') && action.type.endsWith('/rejected'),
+        action => action.type.startsWith('auth/') && action.type.endsWith('/rejected'),
         (state, action) => {
-          if (!action.payload) return;
-          const { type } = action.payload;
-          processLogOut(state);
-          state.errorType = type;
-        }
-      );
-  }
+          if (!action.payload) return
+          const { type } = action.payload
+          processLogOut(state)
+          state.errorType = type
+        },
+      )
+  },
 })
 
-export const { logOut, changeErrorType } = authSlice.actions;
+export const { logOut, changeErrorType } = authSlice.actions
 export default authSlice.reducer

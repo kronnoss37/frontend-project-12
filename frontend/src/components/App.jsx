@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import { Routes, Route } from 'react-router'
 
 import Layout from './Layout/Layout'
@@ -11,21 +11,21 @@ import RequireAuth from '../router/RequireAuth'
 const App = () => {
   return (
     <Routes>
-      <Route path='/' element={<Layout />}>
+      <Route path="/" element={<Layout />}>
         <Route
           index
-          element={
+          element={(
             <RequireAuth>
               <ChatPage />
             </RequireAuth>
-          }
+          )}
         />
-        <Route path='login' element={<LoginPage />} />
-        <Route path='signup' element={<SignUpPage />} />
-        <Route path='*' element={<NotFoundPage />} />
+        <Route path="login" element={<LoginPage />} />
+        <Route path="signup" element={<SignUpPage />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Route>
     </Routes>
-  );
+  )
 }
 
 export default App
