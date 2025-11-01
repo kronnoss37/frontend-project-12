@@ -11,7 +11,7 @@ const Channels = ({ channels, currentChannel, changeChannel, handleOpenModal }) 
     <Col xs={4} md={2} className="border-end px-0 bg-light flex-column h-100 d-flex">
       <div className="d-flex mt-1 justify-content-between mb-2 ps-4 pe-2 p-4">
         <b>{t('channels.title')}</b>
-        <Button variant='ligth' className="p-0 text-primary btn-group-vertical" onClick={() => handleOpenModal({ type: 'add' })}>
+        <Button variant="ligth" className="p-0 text-primary btn-group-vertical" onClick={() => handleOpenModal({ type: 'add' })}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 16 16"

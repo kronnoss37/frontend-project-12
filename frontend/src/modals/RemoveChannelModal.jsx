@@ -18,7 +18,7 @@ const RemoveChannelModal = ({ onHide, token, channel }) => {
         await dispatch(removeAsyncChannel({ token, id: channel.id })).unwrap()
         onHide()
       }
-      catch (error) {
+      catch {
       }
       finally {
         setSubmitting(false)

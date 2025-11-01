@@ -17,7 +17,7 @@ const RenameChannelModal = ({ onHide, channels, token, channel }) => {
         await dispatch(editAsyncChannel({ token, id: channel.id, editedChannel: values })).unwrap()
         onHide()
       }
-      catch (error) {
+      catch {
       }
       finally {
         setSubmitting(false)

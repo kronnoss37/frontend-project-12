@@ -17,7 +17,7 @@ const AddChannelModal = ({ onHide, channels, token }) => {
         await dispatch(addAsyncChannel({ token, newChannel: values })).unwrap()
         onHide()
       }
-      catch (error) {
+      catch {
       }
       finally {
         setSubmitting(false)
