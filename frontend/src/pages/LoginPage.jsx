@@ -1,4 +1,3 @@
-import React from 'react'
 import { Link } from 'react-router'
 import { Container, Row, Col, Card, Image } from 'react-bootstrap'
 import { useTranslation } from 'react-i18next'

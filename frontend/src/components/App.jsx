@@ -1,4 +1,3 @@
-import React from 'react'
 import { Routes, Route } from 'react-router'
 
 import Layout from './Layout/Layout'
