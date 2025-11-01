@@ -8,8 +8,8 @@ import { Provider as RollbarProvider, ErrorBoundary } from '@rollbar/react';
 
 import App from './components/App'
 import store from './store'
-import initSocket from './client'
-import initI18next from './i18next'
+import initSocket from './services/client'
+import initI18next from './services/i18next';
 
 initSocket(store)
 const i18n = initI18next()
