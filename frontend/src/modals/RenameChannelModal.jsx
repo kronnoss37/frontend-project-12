@@ -11,13 +11,15 @@ const RenameChannelModal = ({ onHide, channels, token, channel }) => {
 
   const dispatch = useDispatch()
 
-  const renameNewChannel = (values, { setSubmitting }) => {
+  const renameNewChannel = async (values, { setSubmitting }) => {
     if (token) {
-      dispatch(editAsyncChannel({ token, id: channel.id, editedChannel: values }))
-        .unwrap()
-        .then(() => onHide())
-        .finally(() => setSubmitting(false))
-      // onHide()
+      try {
+        await dispatch(editAsyncChannel({ token, id: channel.id, editedChannel: values })).unwrap();
+        onHide();
+      } catch (error) {
+      } finally {
+        setSubmitting(false);
+      } 
     }
   }
 

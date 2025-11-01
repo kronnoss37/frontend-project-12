@@ -12,13 +12,15 @@ const RemoveChannelModal = ({ onHide, token, channel }) => {
 
   const dispatch = useDispatch()
 
-  const removeChannel = (_values, { setSubmitting }) => {
+  const removeChannel = async (_values, { setSubmitting }) => {
     if (token) {
-      dispatch(removeAsyncChannel({ token, id: channel.id }))
-        .unwrap()
-        .then(() => onHide())
-        .finally(() => setSubmitting(false))
-      // onHide()
+      try {
+        await dispatch(removeAsyncChannel({ token, id: channel.id })).unwrap();
+        onHide();
+      } catch (error) {
+      } finally {
+        setSubmitting(false);
+      }
     }
   }
 
@@ -40,7 +42,7 @@ const RemoveChannelModal = ({ onHide, token, channel }) => {
                   <LoadingButton variant='danger' />
                 ) : (
                   <Button variant='danger' type='submit'>
-                    {t('modals.sendButton')}
+                    {t('modals.removeButton')}
                   </Button>
                 )}
               </div>

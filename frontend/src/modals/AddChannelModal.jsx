@@ -11,13 +11,15 @@ const AddChannelModal = ({ onHide, channels, token }) => {
 
   const dispatch = useDispatch()
 
-  const addNewChannel = (values, { setSubmitting }) => {
+  const addNewChannel = async (values, { setSubmitting }) => {
     if (token) {
-      dispatch(addAsyncChannel({ token, newChannel: values }))
-        .unwrap()
-        .then(() => onHide())
-        .finally(() => setSubmitting(false))
-      // onHide()
+      try {
+        await dispatch(addAsyncChannel({ token, newChannel: values })).unwrap();
+        onHide();
+      } catch (error) {
+      } finally {
+        setSubmitting(false);
+      }
     }
   }
 
