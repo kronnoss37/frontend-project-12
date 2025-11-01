@@ -28,8 +28,8 @@ const addAsyncChannel = createAsyncThunk(
   'channels/addChannel',
   async ({ token, newChannel }, { rejectWithValue }) => {
     try {
-      await axios.post(routes.channelsPath(), newChannel, getRequestBody(token))
-      return { notificationPath: 'notifications.success.addChannel' }
+      const response = await axios.post(routes.channelsPath(), newChannel, getRequestBody(token))
+      return { data: response.data, notificationPath: 'notifications.success.addChannel' }
     }
     catch (error) {
       console.error(`Error: ${error?.response?.statusText ?? error.message}`)
@@ -82,7 +82,6 @@ const channelsSlice = createSlice({
     addChannel: (state, action) => {
       const newChannel = action.payload
       state.channels.push(newChannel)
-      state.currentChannel = newChannel
     },
     editChannel: (state, action) => {
       const newChannel = action.payload
@@ -114,6 +113,12 @@ const channelsSlice = createSlice({
         const { data: channels } = action.payload
         state.channels = channels
         state.currentChannel = channels?.[0]
+      })
+
+    builder
+      .addCase(addAsyncChannel.fulfilled, (state, action) => {
+        const { data: newChannel } = action.payload
+        state.currentChannel = newChannel
       })
   },
 })
