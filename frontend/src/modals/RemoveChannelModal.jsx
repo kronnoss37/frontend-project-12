@@ -1,4 +1,3 @@
-import React from 'react'
 import { useDispatch } from 'react-redux'
 import { Modal, Button } from 'react-bootstrap'
 import { Formik, Form } from 'formik'
@@ -18,6 +17,7 @@ const RemoveChannelModal = ({ onHide, token, channel }) => {
         await dispatch(removeAsyncChannel({ token, id: channel.id })).unwrap()
         onHide()
       }
+      // eslint-disable-next-line no-empty
       catch {
       }
       finally {

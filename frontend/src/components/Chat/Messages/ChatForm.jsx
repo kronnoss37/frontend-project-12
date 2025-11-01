@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { Form, InputGroup, Button } from 'react-bootstrap'
 import { useTranslation } from 'react-i18next'
 

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { Outlet } from 'react-router'
 import { useTranslation } from 'react-i18next'

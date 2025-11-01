@@ -1,4 +1,3 @@
-import React from 'react'
 import { useDispatch } from 'react-redux'
 import { Modal } from 'react-bootstrap'
 import { useTranslation } from 'react-i18next'
@@ -17,6 +16,7 @@ const RenameChannelModal = ({ onHide, channels, token, channel }) => {
         await dispatch(editAsyncChannel({ token, id: channel.id, editedChannel: values })).unwrap()
         onHide()
       }
+      // eslint-disable-next-line no-empty
       catch {
       }
       finally {
