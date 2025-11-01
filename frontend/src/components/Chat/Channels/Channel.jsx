@@ -1,6 +1,7 @@
 import React from 'react'
 import { Button, ButtonGroup, Dropdown } from 'react-bootstrap'
 import { useTranslation } from 'react-i18next'
+import filter from 'leo-profanity'
 
 const setVariantBtn = (id, activeId) => (id === activeId ? 'secondary' : 'light')
 
@@ -18,7 +19,7 @@ const Channel = ({ channel, currentChannel, changeChannel, handleOpenModal }) =>
                 onClick={() => changeChannel(channel)}
               >
                 <span className="me-1">{t('channels.channelPrefix')}</span>
-                {channel.name}
+                {filter.clean(channel.name)}
               </Button>
               <Dropdown.Toggle
                 split
