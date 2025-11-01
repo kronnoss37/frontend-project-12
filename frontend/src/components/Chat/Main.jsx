@@ -11,8 +11,7 @@ import { getMessages, addAsyncMessage } from '../../store/slices/messagesSlice'
 
 const Main = () => {
   const dispatch = useDispatch()
-  // Сделать состояние isLoading в channels и в auth ???
-
+  
   const userData = useSelector(state => state.authData.user)
   const channels = useSelector(state => state.channelsData.channels)
   const currentChannel = useSelector(state => state.channelsData.currentChannel)
@@ -25,9 +24,6 @@ const Main = () => {
 
   const isOpneModal = !!modal.type
   const CurrentModal = renderModal(modal.type)
-
-  console.log('messages', messages)
-  console.log('channels', channels)
 
   useEffect(() => {
     const fetch = async () => {

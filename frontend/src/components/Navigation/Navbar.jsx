@@ -24,7 +24,7 @@ const NavbarBlock = () => {
     <Navbar expand="lg" bg="white" variant="light" className="shadow-sm">
       <Container className="container">
         <Link className="navbar-brand" to="/">{t('navbar.brand')}</Link>
-        {isAuth ? <Button variant="primary" onClick={handleLogout}>{t('navbar.logoutButton')}</Button> : ''}
+        {isAuth && <Button variant="primary" onClick={handleLogout}>{t('navbar.logoutButton')}</Button>}
       </Container>
     </Navbar>
   )

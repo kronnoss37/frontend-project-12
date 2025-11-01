@@ -10,7 +10,6 @@ const Layout = () => {
   const { t } = useTranslation()
 
   const notification = useSelector(state => state.notifications.notification)
-  console.log('notification', notification)
   
   useEffect(() => {
     if(notification?.type) {

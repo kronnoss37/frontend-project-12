@@ -9,7 +9,7 @@ const Chat = ({ currentChannel, messages, addNewMessage, isLoadingMessage }) => 
   const { t } = useTranslation()
 
   const channelMessages = messages?.filter(({ channelId }) => channelId === currentChannel.id)
-  const messagesCount = channelMessages?.length
+  const messagesCount = channelMessages?.length ?? 0
 
   return (
     <Col className='p-0 h-100'>
