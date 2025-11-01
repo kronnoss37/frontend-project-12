@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
-import routes from '../../routes'
+import routes from '../../utils/routes'
 import handleErrors from '../../utils/handleErrors'
 
 const getRequestBody = token => ({
