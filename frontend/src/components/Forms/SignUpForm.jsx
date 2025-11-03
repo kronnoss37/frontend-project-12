@@ -4,30 +4,10 @@ import { useNavigate } from 'react-router'
 import { Formik, Form, Field } from 'formik'
 import { Button } from 'react-bootstrap'
 import { useTranslation } from 'react-i18next'
-import * as yup from 'yup'
 
 import { signupUser, changeErrorType } from '../../store/slices/authSlice'
 import LoadingButton from '../../buttons/LoadingButton'
-
-const initSchema = t => (
-  yup.object().shape({
-    username: yup
-      .string()
-      .trim()
-      .required(t('controlErrors.requiredField'))
-      .min(3, t('controlErrors.fieldLength'))
-      .max(20, t('controlErrors.fieldLength')),
-    password: yup
-      .string()
-      .trim()
-      .required(t('controlErrors.requiredField'))
-      .min(6, t('controlErrors.minPasswordSymbols')),
-    confirmPassword: yup
-      .string()
-      .trim()
-      .required(t('controlErrors.requiredField'))
-      .oneOf([yup.ref('password')], t('controlErrors.identicalPasswords')),
-  }))
+import initSignUpSchema from '../../validation/signUpSchema'
 
 const SignUpForm = () => {
   const { t } = useTranslation()
@@ -67,7 +47,7 @@ const SignUpForm = () => {
   }
 
   return (
-    <Formik initialValues={initialValues} validationSchema={initSchema(t)} onSubmit={handleSubmit} validateOnChange={false}>
+    <Formik initialValues={initialValues} validationSchema={initSignUpSchema(t)} onSubmit={handleSubmit} validateOnChange={false}>
       {({ values, errors, touched, isSubmitting }) => {
         useEffect(() => { // necessary for a better UX
           if (values.username && isSignUpError) {
