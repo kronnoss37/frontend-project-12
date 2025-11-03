@@ -4,7 +4,7 @@ import { Formik, Form, Field } from 'formik'
 import { Button } from 'react-bootstrap'
 import { useTranslation } from 'react-i18next'
 
-import LoadingButton from '../buttons/LoadingButton'
+import LoadingButton from '../components/buttons/LoadingButton'
 
 const initShema = (t, channels) =>
   yup.object().shape({

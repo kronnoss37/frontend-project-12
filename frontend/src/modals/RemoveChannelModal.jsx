@@ -3,7 +3,7 @@ import { Modal, Button } from 'react-bootstrap'
 import { Formik, Form } from 'formik'
 import { useTranslation } from 'react-i18next'
 
-import LoadingButton from '../buttons/LoadingButton'
+import LoadingButton from '../components/buttons/LoadingButton'
 import { removeAsyncChannel } from '../store/slices/channelsSlice'
 
 const RemoveChannelModal = ({ onHide, token, channel }) => {

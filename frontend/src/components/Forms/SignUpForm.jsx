@@ -76,62 +76,60 @@ const SignUpForm = () => {
         }, [values.username])
 
         return (
-          <Form className="w-50">
-            <h1 className="text-center mb-4">{t('signUpForm.title')}</h1>
-            <div className="form-floating mb-3">
+          <Form className='w-50'>
+            <h1 className='text-center mb-4'>{t('signUpForm.title')}</h1>
+            <div className='form-floating mb-3'>
               <Field
-                name="username"
-                id="username"
-                autoComplete="username"
+                name='username'
+                id='username'
+                autoComplete='off'
                 className={className(errors, touched, 'username')}
                 placeholder={t('signUpForm.usernameLabel')}
                 ref={inputRef}
               />
-              <label className="form-label" htmlFor="username">
+              <label className='form-label' htmlFor='username'>
                 {t('signUpForm.usernameLabel')}
               </label>
-              <div className="invalid-feedback">{errors.username}</div>
+              <div className='invalid-feedback'>{errors.username}</div>
             </div>
-            <div className="form-floating mb-3">
+            <div className='form-floating mb-3'>
               <Field
-                name="password"
-                id="password"
-                type="password"
-                autoComplete="new-password"
+                name='password'
+                id='password'
+                type='password'
+                autoComplete='off'
                 className={className(errors, touched, 'password')}
                 placeholder={t('signUpForm.passwordLabel')}
-                aria-describedby="passwordHelpBlock"
+                aria-describedby='passwordHelpBlock'
               />
-              <label className="form-label" htmlFor="password">
+              <label className='form-label' htmlFor='password'>
                 {t('signUpForm.passwordLabel')}
               </label>
-              <div className="invalid-feedback">{errors.password}</div>
+              <div className='invalid-feedback'>{errors.password}</div>
             </div>
-            <div className="form-floating mb-4">
+            <div className='form-floating mb-4'>
               <Field
-                name="confirmPassword"
-                id="confirmPassword"
-                type="password"
-                autoComplete="new-password"
+                name='confirmPassword'
+                id='confirmPassword'
+                type='password'
+                autoComplete='off'
                 className={className(errors, touched, 'confirmPassword')}
                 placeholder={t('signUpForm.passwordConfirmLabel')}
               />
-              <label className="form-label" htmlFor="confirmPassword">
+              <label className='form-label' htmlFor='confirmPassword'>
                 {t('signUpForm.passwordConfirmLabel')}
               </label>
-              <div className="invalid-feedback">{errors.confirmPassword ?? (isSignUpError && t('controlErrors.signupError'))}</div>
+              <div className='invalid-feedback'>{errors.confirmPassword ?? (isSignUpError && t('controlErrors.signupError'))}</div>
             </div>
-            {isSubmitting
-              ? (
-                  <LoadingButton className="w-100" />
-                )
-              : (
-                  <Button type="submit" variant="outline-primary" className="w-100">
-                    {t('signUpForm.submitButton')}
-                  </Button>
-                )}
+            {isSubmitting ? (
+              <LoadingButton className='w-100' />
+            ) : (
+              <Button type='submit' variant='outline-primary' className='w-100'>
+                {t('signUpForm.submitButton')}
+              </Button>
+            )}
           </Form>
-        )
+        );
       }}
     </Formik>
   )

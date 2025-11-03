@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from 'react'
 import { Form, InputGroup, Button } from 'react-bootstrap'
 import { useTranslation } from 'react-i18next'
 
-import LoadingButton from '../../../buttons/LoadingButton'
+import LoadingButton from '../../buttons/LoadingButton'
 
 const ChatForm = ({ addNewMessage, isLoadingMessage }) => {
   const { t } = useTranslation()
