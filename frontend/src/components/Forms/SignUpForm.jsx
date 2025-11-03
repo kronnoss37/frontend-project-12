@@ -6,7 +6,7 @@ import { Button } from 'react-bootstrap'
 import { useTranslation } from 'react-i18next'
 
 import { signupUser, changeErrorType } from '../../store/slices/authSlice'
-import LoadingButton from '../../buttons/LoadingButton'
+import LoadingButton from '../buttons/LoadingButton'
 import initSignUpSchema from '../../validation/signUpSchema'
 
 const SignUpForm = () => {
