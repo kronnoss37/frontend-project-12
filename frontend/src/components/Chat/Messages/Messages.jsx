@@ -1,8 +1,8 @@
 import filter from 'leo-profanity'
 
-const Messages = ({ channelMessages }) => {
+const Messages = ({ channelMessages, messagesBoxRef }) => {
   return (
-    <div id="messages-box" className="chat-messages overflow-auto px-5">
+    <div id="messages-box" className="chat-messages overflow-auto px-5" ref={messagesBoxRef}>
       {channelMessages?.map(message => (
         <div key={message.id} className="text-break mb-2">
           <b>{`${message.username}:`}</b>

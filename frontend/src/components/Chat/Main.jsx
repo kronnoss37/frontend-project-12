@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import Channels from './Channels/Channels'
@@ -12,6 +12,8 @@ import { getMessages, addAsyncMessage } from '../../store/slices/messagesSlice'
 const Main = () => {
   const dispatch = useDispatch()
 
+  const messagesBoxRef = useRef(null)
+
   const userData = useSelector(state => state.authData.user)
   const channels = useSelector(state => state.channelsData.channels)
   const currentChannel = useSelector(state => state.channelsData.currentChannel)
@@ -24,6 +26,10 @@ const Main = () => {
 
   const isOpneModal = !!modal.type
   const CurrentModal = renderModal(modal.type)
+
+  useEffect(() => {
+    messagesBoxRef.current.scrollTop = messagesBoxRef.current.scrollHeight
+  }, [messages])
 
   useEffect(() => {
     const fetch = async () => {
@@ -59,17 +65,18 @@ const Main = () => {
   return (
     <>
       <Channels channels={channels} currentChannel={currentChannel} changeChannel={changeChannel} handleOpenModal={handleOpenModal} />
-      <Chat currentChannel={currentChannel} messages={messages} addNewMessage={addNewMessage} isLoadingMessage={isLoadingMessage} />
+      <Chat
+        currentChannel={currentChannel}
+        messages={messages}
+        addNewMessage={addNewMessage}
+        isLoadingMessage={isLoadingMessage}
+        messagesBoxRef={messagesBoxRef}
+      />
       {isOpneModal && (
-        <CurrentModal
-          onHide={() => dispatch(closeModal())}
-          channels={channels}
-          token={token}
-          channel={modal.selectedChannel}
-        />
+        <CurrentModal onHide={() => dispatch(closeModal())} channels={channels} token={token} channel={modal.selectedChannel} />
       )}
     </>
-  )
+  );
 }
 
 export default Main
