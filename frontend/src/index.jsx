@@ -17,9 +17,9 @@ filter.add(filter.getDictionary('ru'))
 filter.add(filter.getDictionary('en'))
 
 const rollbarConfig = {
-  accessToken: '0111a1874e4c4cb98e45293c6fc705df40cb3cbe70f5b8b940aad0062519b4859ed2ba38e4bebba352cebc2c3f84ae8f',
+  accessToken: import.meta.env.VITE_ROLLBAR_ACCESS_TOKEN,
   environment: 'development',
-}
+};
 
 const mountNode = document.querySelector('#chat')
 const root = ReactDOM.createRoot(mountNode)
