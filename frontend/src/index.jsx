@@ -19,7 +19,7 @@ filter.add(filter.getDictionary('en'))
 const rollbarConfig = {
   accessToken: import.meta.env.VITE_ROLLBAR_ACCESS_TOKEN,
   environment: 'development',
-};
+}
 
 const mountNode = document.querySelector('#chat')
 const root = ReactDOM.createRoot(mountNode)

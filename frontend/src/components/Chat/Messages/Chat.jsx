@@ -11,21 +11,21 @@ const Chat = ({ currentChannel, messages, addNewMessage, isLoadingMessage, messa
   const messagesCount = channelMessages?.length ?? 0
 
   return (
-    <Col className='p-0 h-100'>
-      <div className='d-flex flex-column h-100'>
+    <Col className="p-0 h-100">
+      <div className="d-flex flex-column h-100">
         {currentChannel && (
-          <div className='bg-light mb-4 p-3 shadow-sm small'>
-            <p className='m-0'>
+          <div className="bg-light mb-4 p-3 shadow-sm small">
+            <p className="m-0">
               <b>{`${t('channels.channelPrefix')} ${currentChannel?.name}`}</b>
             </p>
-            <span className='text-muted'>{t('messages.message', { count: messagesCount })}</span>
+            <span className="text-muted">{t('messages.message', { count: messagesCount })}</span>
           </div>
         )}
         <Messages channelMessages={channelMessages} messagesBoxRef={messagesBoxRef} />
         <ChatForm addNewMessage={addNewMessage} isLoadingMessage={isLoadingMessage} />
       </div>
     </Col>
-  );
+  )
 }
 
 export default Chat

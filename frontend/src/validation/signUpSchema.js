@@ -20,4 +20,4 @@ const initSignUpSchema = t => (
       .oneOf([yup.ref('password')], t('controlErrors.identicalPasswords')),
   }))
 
-export default initSignUpSchema;
+export default initSignUpSchema

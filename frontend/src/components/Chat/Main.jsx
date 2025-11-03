@@ -76,7 +76,7 @@ const Main = () => {
         <CurrentModal onHide={() => dispatch(closeModal())} channels={channels} token={token} channel={modal.selectedChannel} />
       )}
     </>
-  );
+  )
 }
 
 export default Main
