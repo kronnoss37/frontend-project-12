@@ -10,12 +10,12 @@ const SignUpPage = () => {
   return (
     <Container fluid className="h-100">
       <Row className="justify-content-center align-content-center h-100">
-        <Col xs={12} md={8} xxl={6}>
+        <Col xs={12} md={9} xxl={6}>
           <Card className="shadow-sm">
-            <Card.Body className="d-flex flex-column flex-md-row justify-content-around align-items-center p-5">
-              <div>
-                <Image src={signupPicture} roundedCircle alt={t('signUpPage.altImage')} />
-              </div>
+            <Card.Body as={Row} className="d-flex flex-column flex-md-row justify-content-around align-items-center p-5">
+              <Col xs={12} md={6} className="d-flex align-items-center justify-content-center">
+                <Image src={signupPicture} roundedCircle alt={t('signUpPage.altImage')} width="250px" />
+              </Col>
               <SignUpForm />
             </Card.Body>
           </Card>

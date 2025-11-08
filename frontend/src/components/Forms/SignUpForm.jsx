@@ -56,7 +56,7 @@ const SignUpForm = () => {
         }, [values.username])
 
         return (
-          <Form className="w-50">
+          <Form className="col-12 col-md-6 mt-3 mt-md-0">
             <h1 className="text-center mb-4">{t('signUpForm.title')}</h1>
             <div className="form-floating mb-3">
               <Field
