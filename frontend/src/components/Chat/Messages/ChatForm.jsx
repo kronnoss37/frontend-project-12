@@ -27,7 +27,7 @@ const ChatForm = ({ addNewMessage, isLoadingMessage }) => {
   }
 
   return (
-    <div className="mt-auto px-5 py-3">
+    <div className="mt-auto px-4 py-3">
       <Form noValidate className="py-1 border rounded-2" onSubmit={onSubmit}>
         <InputGroup className={isInvalid ? 'has-validation' : ''}>
           <Form.Control
@@ -41,10 +41,19 @@ const ChatForm = ({ addNewMessage, isLoadingMessage }) => {
           />
           {isLoadingMessage
             ? (
-                <LoadingButton isVisuallyHidden={true} variant="light" spinnerColor="text-dark" />
+                <LoadingButton
+                  isVisuallyHidden={true}
+                  variant="light"
+                  spinnerColor="text-dark"
+                />
               )
             : (
-                <Button type="submit" variant="light" className="btn-group-vertical" disabled={isInvalid}>
+                <Button
+                  type="submit"
+                  variant="light"
+                  className="btn-group-vertical"
+                  disabled={isInvalid}
+                >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 16 16"
@@ -59,7 +68,9 @@ const ChatForm = ({ addNewMessage, isLoadingMessage }) => {
                     >
                     </path>
                   </svg>
-                  <span className="visually-hidden">{t('chatForm.sendButton')}</span>
+                  <span className="visually-hidden">
+                    {t('chatForm.sendButton')}
+                  </span>
                 </Button>
               )}
         </InputGroup>
