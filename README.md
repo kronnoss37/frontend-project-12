@@ -71,7 +71,3 @@ make app
 # Build the project
 make build
 ```
-
-## 👤 Автор
-
-#### Kirill — Frontend Developer
